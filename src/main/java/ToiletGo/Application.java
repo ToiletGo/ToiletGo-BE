@@ -1,4 +1,4 @@
-package com.toiletgo.ToiletGo;
+package ToiletGo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
