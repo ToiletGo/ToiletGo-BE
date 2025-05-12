@@ -1,4 +1,4 @@
-package ToiletGo.user.dao;
+package toiletgo.user.dao;
 
 /**
  * DAO Class

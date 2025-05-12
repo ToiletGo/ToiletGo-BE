@@ -1,4 +1,4 @@
-package ToiletGo.user.dto;
+package toiletgo.user.dto;
 
 /**
  * DTO Class

@@ -1,4 +1,4 @@
-package ToiletGo.activities.service;
+package toiletgo.activities.repository;
 
 /**
  * commit을 위한 빈 클래스
