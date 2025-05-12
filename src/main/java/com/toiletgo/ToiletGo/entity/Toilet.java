@@ -1,10 +1,7 @@
 package com.toiletgo.ToiletGo.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
@@ -14,6 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Toilet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +27,12 @@ public class Toilet {
     @Column(nullable = false, precision = 11, scale = 2)
     private BigDecimal longitude;
 
+    private String guName;
     private String buildingName;
     private String telNo;
     private String toiletType;
     private String openTime;
-    private String usage;
+    private String toiletUsage;
     private String toiletStatus;
 
     @Lob
@@ -72,6 +71,10 @@ public class Toilet {
         return longitude;
     }
 
+    public String getGuName() {
+        return guName;
+    }
+
     public String getBuildingName() {
         return buildingName;
     }
@@ -88,8 +91,8 @@ public class Toilet {
         return openTime;
     }
 
-    public String getUsage() {
-        return usage;
+    public String getToiletUsage() {
+        return toiletUsage;
     }
 
     public String getToiletStatus() {

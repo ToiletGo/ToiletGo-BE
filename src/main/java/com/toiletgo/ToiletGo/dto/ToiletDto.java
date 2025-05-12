@@ -19,10 +19,11 @@ public class ToiletDto {
     private BigDecimal latitude;
     private BigDecimal longitude;
     private String buildingName;
+    private String guName;
     private String telNo;
     private String toiletType;
     private String openTime;
-    private String usage;
+    private String toiletUsage;
     private String toiletStatus;
     private String facilities;
     private String signInfo;
@@ -32,7 +33,31 @@ public class ToiletDto {
     private Boolean hasHandicapAccess;
     private Boolean hasBidet;
     private Boolean hasTissue;
-    public ToiletDto toDto(Toilet toilet) {
+
+    public Toilet toEntity() {
+        return Toilet.builder()
+                .roadAddress(roadAddress)
+                .lotAddress(lotAddress)
+                .latitude(latitude)
+                .longitude(longitude)
+                .buildingName(buildingName)
+                .guName(guName)
+                .telNo(telNo)
+                .toiletType(toiletType)
+                .openTime(openTime)
+                .toiletUsage(toiletUsage)
+                .toiletStatus(toiletStatus)
+                .facilities(facilities)
+                .signInfo(signInfo)
+                .note(note)
+                .rating(rating)
+                .hasDiaperTable(hasDiaperTable)
+                .hasHandicapAccess(hasHandicapAccess)
+                .hasBidet(hasBidet)
+                .hasTissue(hasTissue)
+                .build();
+    }
+    public static ToiletDto toDto(Toilet toilet) {
        return ToiletDto.builder()
                 .toiletId(toilet.getToiletId())
                 .roadAddress(toilet.getRoadAddress())
@@ -43,7 +68,7 @@ public class ToiletDto {
                 .telNo(toilet.getTelNo())
                 .toiletType(toilet.getToiletType())
                 .openTime(toilet.getOpenTime())
-                .usage(toilet.getUsage())
+                .toiletUsage(toilet.getToiletUsage())
                 .toiletStatus(toilet.getToiletStatus())
                 .facilities(toilet.getFacilities())
                 .signInfo(toilet.getSignInfo())
