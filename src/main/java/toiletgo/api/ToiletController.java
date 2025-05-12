@@ -1,8 +1,8 @@
-package com.toiletgo.ToiletGo.api;
+package toiletgo.api;
 
-import com.toiletgo.ToiletGo.dto.ToiletDto;
-import com.toiletgo.ToiletGo.entity.Toilet;
-import com.toiletgo.ToiletGo.repository.ToiletRepository;
+import toiletgo.dto.ToiletDto;
+import toiletgo.entity.Toilet;
+import toiletgo.repository.ToiletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class ToiletController {
 
         if (!toilets.isEmpty()) {
             List<ToiletDto> toiletDtos = toilets.stream()
-                    .map(ToiletDto::toDto)  // ✅ 엔티티 내 toDto() 사용
+                    .map(ToiletDto::toDto)
                     .collect(Collectors.toList());
 
             return ResponseEntity.status(HttpStatus.OK).body(toiletDtos);

@@ -1,6 +1,6 @@
-package com.toiletgo.ToiletGo.dto;
+package toiletgo.dto;
 
-import com.toiletgo.ToiletGo.entity.Mission;
+import toiletgo.entity.Mission;
 import lombok.Builder;
 import lombok.Data;
 

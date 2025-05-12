@@ -1,8 +1,6 @@
-package com.toiletgo.ToiletGo.dto;
+package toiletgo.dto;
 
-import com.toiletgo.ToiletGo.entity.Toilet;
-import jakarta.persistence.Column;
-import jakarta.persistence.Lob;
+import toiletgo.entity.Toilet;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

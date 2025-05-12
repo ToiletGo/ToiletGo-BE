@@ -1,4 +1,4 @@
-package com.toiletgo.ToiletGo.entity;
+package toiletgo.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,6 +1,6 @@
-package com.toiletgo.ToiletGo.dto;
+package toiletgo.dto;
 
-import com.toiletgo.ToiletGo.entity.User;
+import toiletgo.entity.User;
 import lombok.Builder;
 import lombok.Data;
 

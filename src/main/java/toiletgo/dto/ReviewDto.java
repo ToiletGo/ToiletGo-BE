@@ -1,6 +1,6 @@
-package com.toiletgo.ToiletGo.dto;
+package toiletgo.dto;
 
-import com.toiletgo.ToiletGo.entity.Review;
+import toiletgo.entity.Review;
 import lombok.Builder;
 import lombok.Data;
 
