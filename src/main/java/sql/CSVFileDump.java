@@ -6,6 +6,7 @@ public class CSVFileDump {
 
     public static void main(String[] args) {
         String fileName = "src/main/resources/toilet.csv"; //
+        System.out.println("한글 인코딩 테스트 <UNK> <UNK>");
 
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(new FileInputStream(fileName), "MS949"))) {
