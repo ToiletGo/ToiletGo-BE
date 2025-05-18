@@ -1,8 +1,11 @@
 package toiletgo.activities.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import toiletgo.user.entity.User;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -11,23 +14,35 @@ import toiletgo.user.entity.User;
 @AllArgsConstructor
 @Builder
 public class Report {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reportId;
+    @Column(unique = true, nullable = false, name = "report_id")
+    private Integer reportId;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
-    private User reporter;
+    private User user;
 
-    @Column(name = "target_type", nullable = false)
-    private String targetType;
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name="review_id", nullable = false)
+    private Review review;
 
-    @Column(name = "target_id", nullable = false)
-    private Long targetId;
+    @Column(name = "report_type", nullable = false)
+    private String reportType;
 
-    @Column(nullable = false, length = 500)
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(nullable = false)
-    private String createdAt;
+    @Column(nullable = false, name="is_processed")
+    private boolean isProcessed;
+
+    @Column(nullable = false, name="report_at")
+    private LocalDateTime reportAt;
+
+
+
 }

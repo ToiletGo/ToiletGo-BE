@@ -2,30 +2,32 @@ package toiletgo.activities.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import toiletgo.user.entity.User;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Mission {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, name = "mission_id")
     private Long missionId;
 
-    @Column(nullable = false)
-    private String title;
+    @Column(name = "mission_name")
+    private String missionName;
 
-    @Column(nullable = false, length = 1000)
+    @Column(name = "description", length = 1024)
     private String description;
-
-    @Column(name = "reward_point", nullable = false)
-    private Integer rewardPoint;
 
     @Column(name = "mission_type", nullable = false)
     private String missionType;
 
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive;
+    @Column(name = "point", nullable = false)
+    private Boolean point;
+
+    @OneToOne(mappedBy = "mission", cascade = CascadeType.ALL)
+    private MissionList missionList;
 }

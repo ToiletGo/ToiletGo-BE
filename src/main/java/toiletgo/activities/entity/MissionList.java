@@ -1,31 +1,43 @@
 package toiletgo.activities.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import toiletgo.user.entity.*;
 
+import java.time.LocalDateTime;
+
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class MissionList {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "mission_id")
+    private Long missionId;
+
+    @MapsId
+    @OneToOne
+    @JsonIgnore
+    @JoinColumn(name = "mission_id")
+    private Mission mission;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mission_id", nullable = false)
-    private Mission mission;
+    @Column(name = "mission_progress", length = 1024)
+    private Integer progress;
 
     @Column(name = "is_completed", nullable = false)
-    private Boolean isCompleted;
+    private Boolean missionType;
 
-    @Column(name = "completed_at")
-    private String completedAt;
+    @Column(name = "completed_at", nullable = false)
+    private LocalDateTime completedAt;
+
 }
+
+
+// @MapsId  // 이 필드가 missionId를 매핑하고 PK로 사용함
