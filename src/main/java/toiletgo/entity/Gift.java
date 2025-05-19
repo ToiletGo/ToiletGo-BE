@@ -12,12 +12,14 @@ import lombok.*;
 public class Gift {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User userId;
-
-    @Column(name = "gift_id", nullable = false)
     private Long giftId;
+
+    @Column(nullable = false)
+    private Long userId;
+
+    @Column
+    private boolean is_used = true;
+
+    @Column
+    private boolean is_expired;
 }

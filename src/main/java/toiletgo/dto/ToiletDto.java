@@ -55,29 +55,6 @@ public class ToiletDto {
                 .hasTissue(hasTissue)
                 .build();
     }
-    public static ToiletDto toDto(Toilet toilet) {
-       return ToiletDto.builder()
-                .toiletId(toilet.getToiletId())
-                .roadAddress(toilet.getRoadAddress())
-                .lotAddress(toilet.getLotAddress())
-                .latitude(toilet.getLatitude())
-                .longitude(toilet.getLongitude())
-                .buildingName(toilet.getBuildingName())
-                .telNo(toilet.getTelNo())
-                .toiletType(toilet.getToiletType())
-                .openTime(toilet.getOpenTime())
-                .toiletUsage(toilet.getToiletUsage())
-                .toiletStatus(toilet.getToiletStatus())
-                .facilities(toilet.getFacilities())
-                .signInfo(toilet.getSignInfo())
-                .note(toilet.getNote())
-                .rating(toilet.getRating())
-                .hasDiaperTable(toilet.getHasDiaperTable())
-                .hasHandicapAccess(toilet.getHasHandicapAccess())
-                .hasBidet(toilet.getHasBidet())
-                .hasTissue(toilet.getHasTissue())
-                .build();
-    }
 }
 
 

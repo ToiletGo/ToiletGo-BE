@@ -21,7 +21,7 @@ public class ToiletController {
 
         if (!toilets.isEmpty()) {
             List<ToiletDto> toiletDtos = toilets.stream()
-                    .map(ToiletDto::toDto)
+                    .map(toilet -> toilet.toDto())
                     .collect(Collectors.toList());
 
             return ResponseEntity.status(HttpStatus.OK).body(toiletDtos);
@@ -34,7 +34,7 @@ public class ToiletController {
     public ResponseEntity<ToiletDto> getToilet(@PathVariable Long toiletId){
         Toilet toilet = toiletRepository.findById(toiletId).orElse(null);
         if(toilet != null){
-            ToiletDto toiletDto = ToiletDto.toDto(toilet);
+            ToiletDto toiletDto = toilet.toDto();
             return ResponseEntity.status(HttpStatus.OK).body(toiletDto);
         } else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);

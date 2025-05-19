@@ -3,6 +3,7 @@ package toiletgo.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
+import toiletgo.dto.ToiletDto;
 
 import java.math.BigDecimal;
 
@@ -51,83 +52,27 @@ public class Toilet {
     private Boolean hasBidet;
     private Boolean hasTissue;
 
-    public Long getToiletId() {
-        return toiletId;
-    }
-
-    public String getRoadAddress() {
-        return roadAddress;
-    }
-
-    public String getLotAddress() {
-        return lotAddress;
-    }
-
-    public BigDecimal getLatitude() {
-        return latitude;
-    }
-
-    public BigDecimal getLongitude() {
-        return longitude;
-    }
-
-    public String getGuName() {
-        return guName;
-    }
-
-    public String getBuildingName() {
-        return buildingName;
-    }
-
-    public String getTelNo() {
-        return telNo;
-    }
-
-    public String getToiletType() {
-        return toiletType;
-    }
-
-    public String getOpenTime() {
-        return openTime;
-    }
-
-    public String getToiletUsage() {
-        return toiletUsage;
-    }
-
-    public String getToiletStatus() {
-        return toiletStatus;
-    }
-
-    public String getFacilities() {
-        return facilities;
-    }
-
-    public String getSignInfo() {
-        return signInfo;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public BigDecimal getRating() {
-        return rating;
-    }
-
-    public Boolean getHasDiaperTable() {
-        return hasDiaperTable;
-    }
-
-    public Boolean getHasHandicapAccess() {
-        return hasHandicapAccess;
-    }
-
-    public Boolean getHasBidet() {
-        return hasBidet;
-    }
-
-    public Boolean getHasTissue() {
-        return hasTissue;
+    public ToiletDto toDto() {
+        return ToiletDto.builder()
+                .toiletId(this.getToiletId())
+                .roadAddress(this.getRoadAddress())
+                .lotAddress(this.getLotAddress())
+                .latitude(this.getLatitude())
+                .longitude(this.getLongitude())
+                .buildingName(this.getBuildingName())
+                .telNo(this.getTelNo())
+                .toiletType(this.getToiletType())
+                .openTime(this.getOpenTime())
+                .toiletUsage(this.getToiletUsage())
+                .toiletStatus(this.getToiletStatus())
+                .facilities(this.getFacilities())
+                .signInfo(this.getSignInfo())
+                .note(this.getNote())
+                .rating(this.getRating())
+                .hasDiaperTable(this.getHasDiaperTable())
+                .hasHandicapAccess(this.getHasHandicapAccess())
+                .hasBidet(this.getHasBidet())
+                .hasTissue(this.getHasTissue())
+                .build();
     }
 }
