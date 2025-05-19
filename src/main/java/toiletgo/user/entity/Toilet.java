@@ -2,7 +2,7 @@ package toiletgo.user.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import toiletgo.activities.entity.Review;
+// import toiletgo.activities.entity.Review;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -14,9 +14,6 @@ public class Toilet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long toiletId;
-
-    @OneToMany(mappedBy = "toilet", cascade = CascadeType.ALL)
-    private List<Review> reviews;
 
     @Column(name="road_address")
     private String roadAddress;
