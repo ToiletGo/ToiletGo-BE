@@ -2,6 +2,8 @@ package toiletgo.user.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import toiletgo.activities.entity.Gift;
+import toiletgo.activities.entity.Mission;
 import toiletgo.activities.entity.Report;
 import toiletgo.activities.entity.Review;
 // import toiletgo.activities.entity.*;
@@ -37,6 +39,14 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Review> reviews;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Mission> missions;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Gift> gifts;
+
+
 
 }
 
