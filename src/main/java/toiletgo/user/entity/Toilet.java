@@ -40,7 +40,7 @@ public class Toilet {
     @Column(name="toilet_type")
     private String toiletType;
 
-    @Column(name="opne_time")
+    @Column(name="open_time")
     private String openTime;
 
     @Column(name="toilet_usage")
@@ -48,6 +48,9 @@ public class Toilet {
 
     @Column(name="toilet_status")
     private String toiletStatus;
+
+    @Column(name="location_detail")
+    private String locationDetail;
 
 
     @Lob

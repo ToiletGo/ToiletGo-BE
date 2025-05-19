@@ -2,6 +2,8 @@ package toiletgo.user.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import toiletgo.activities.entity.Report;
+import toiletgo.activities.entity.Review;
 // import toiletgo.activities.entity.*;
 
 import java.util.*;
@@ -30,7 +32,11 @@ public class User {
     @Column(name = "user_profile_img")
     private String userProfileImg;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Report> reports;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Review> reviews;
 
 }
 
