@@ -15,8 +15,13 @@ public class Mission {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, name = "mission_id")
-    private Long missionId;
+    @Column(nullable = false, name = "no")
+    private Long no;
+
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "missionList")
+    @JoinColumn(nullable = false)
+    private MissionList missionList;
 
     @Column(name = "mission_name")
     private String missionName;
@@ -30,8 +35,6 @@ public class Mission {
     @Column(name = "point", nullable = false)
     private Boolean point;
 
-    @OneToOne(mappedBy = "mission", cascade = CascadeType.ALL)
-    private MissionList missionList;
 
     @ManyToOne // optional = true
     @JsonIgnore

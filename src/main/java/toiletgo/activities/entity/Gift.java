@@ -19,16 +19,17 @@ public class Gift {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "gift_id")
-    private Long giftId;
+    @Column(name = "no")
+    private Long no;
+
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "gift")
+    private GiftList giftList;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "gift")
-    private GiftList giftList;
 
     @Column(name = "is_used")
     private Boolean isUsed;

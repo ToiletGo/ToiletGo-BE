@@ -25,7 +25,7 @@ public class MissionList {
     @JoinColumn(name = "mission_id")
     private Mission mission;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
