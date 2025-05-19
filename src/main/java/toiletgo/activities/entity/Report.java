@@ -24,6 +24,10 @@ public class Report {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ManyToOne // optional = true
+    @JsonIgnore
+    @JoinColumn(name="review_id", nullable = false)
+    private Review review;
 
     @Column(name = "report_type", nullable = false)
     private String reportType;

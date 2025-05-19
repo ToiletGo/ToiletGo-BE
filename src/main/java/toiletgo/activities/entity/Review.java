@@ -22,6 +22,9 @@ public class Review {
     @Column(unique = true, nullable = false, name="review_id")
     private Long reviewId;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "review")
+    private List<Report> reports;
+
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
@@ -32,8 +35,7 @@ public class Review {
     @JoinColumn(name = "toilet_id", nullable = false)
     private Toilet toilet;
 
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "review")
-    //private List<Report> reports;
+
 
     @Column(nullable = false, name="rating")
     private Integer rating;  // 0.0 ~ 5.0
