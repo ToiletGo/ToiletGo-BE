@@ -17,26 +17,26 @@ import java.util.List;
 @Entity
 public class Gift {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "no")
-    private Long no;
+    @Column(name = "gift_no")
+    private Long giftNo;
 
-    //@JsonIgnore
-    //@OneToOne(cascade = CascadeType.ALL, mappedBy = "gift")
-    //private GiftList giftList;
+    @OneToOne
+    @JoinColumn(name = "gift_id")
+    private GiftList giftList;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
 
     @Column(name = "is_used")
     private Boolean isUsed;
 
     @Column(name = "is_expired")
     private Boolean isExpired;
-
-
-
 }
+
