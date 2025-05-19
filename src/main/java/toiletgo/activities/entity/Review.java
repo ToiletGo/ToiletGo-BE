@@ -10,11 +10,12 @@ import toiletgo.user.entity.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
 public class Review {
 
     @Id
@@ -23,14 +24,15 @@ public class Review {
     private Long reviewId;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "toilet_id", nullable = false)
     private Toilet toilet;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "review")
     private List<Report> reports;
 

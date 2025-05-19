@@ -2,128 +2,83 @@ package toiletgo.user.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import toiletgo.activities.entity.Review;
 
 import java.math.BigDecimal;
+import java.util.*;
 
-@Entity
+
 @Data
+@Entity
 public class Toilet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long toiletId;
 
-    @Column
+    @OneToMany(mappedBy = "toilet", cascade = CascadeType.ALL)
+    private List<Review> reviews;
+
+    @Column(name="road_address")
     private String roadAddress;
-    @Column
+
+    @Column(name="lot_address")
     private String lotAddress;
 
-    @Column(nullable = false, precision = 11, scale = 2)
+    @Column(nullable = false, precision = 11, scale = 2, name = "latitude")
     private BigDecimal latitude;
-    @Column(nullable = false, precision = 11, scale = 2)
+
+    @Column(nullable = false, precision = 11, scale = 2, name = "longitude")
     private BigDecimal longitude;
 
-    private String guName;
+
+    @Column(name="building_name")
     private String buildingName;
+
+    @Column(name="gu_name")
+    private String guName;
+
+    @Column(name="tel_no")
     private String telNo;
+
+    @Column(name="toilet_type")
     private String toiletType;
+
+    @Column(name="opne_time")
     private String openTime;
+
+    @Column(name="toilet_usage")
     private String toiletUsage;
+
+    @Column(name="toilet_status")
     private String toiletStatus;
 
+
     @Lob
+    @Column(name="facilities")
     private String facilities;
 
+    @Column(name="sign_info")
     private String signInfo;
 
     @Lob
+    @Column(name="note")
     private String note;
 
-    @Column(precision = 3, scale = 2)
+    @Column(precision = 3, scale = 2, name = "rating")
     private BigDecimal rating;
 
+    @Column(name="has_diaper_table")
     private Boolean hasDiaperTable;
+
+    @Column(name="has_handicap_access")
     private Boolean hasHandicapAccess;
+
+    @Column(name="has_bidet")
     private Boolean hasBidet;
+
+    @Column(name="has_tissue")
     private Boolean hasTissue;
 
-    public Long getToiletId() {
-        return toiletId;
-    }
 
-    public String getRoadAddress() {
-        return roadAddress;
-    }
-
-    public String getLotAddress() {
-        return lotAddress;
-    }
-
-    public BigDecimal getLatitude() {
-        return latitude;
-    }
-
-    public BigDecimal getLongitude() {
-        return longitude;
-    }
-
-    public String getGuName() {
-        return guName;
-    }
-
-    public String getBuildingName() {
-        return buildingName;
-    }
-
-    public String getTelNo() {
-        return telNo;
-    }
-
-    public String getToiletType() {
-        return toiletType;
-    }
-
-    public String getOpenTime() {
-        return openTime;
-    }
-
-    public String getToiletUsage() {
-        return toiletUsage;
-    }
-
-    public String getToiletStatus() {
-        return toiletStatus;
-    }
-
-    public String getFacilities() {
-        return facilities;
-    }
-
-    public String getSignInfo() {
-        return signInfo;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public BigDecimal getRating() {
-        return rating;
-    }
-
-    public Boolean getHasDiaperTable() {
-        return hasDiaperTable;
-    }
-
-    public Boolean getHasHandicapAccess() {
-        return hasHandicapAccess;
-    }
-
-    public Boolean getHasBidet() {
-        return hasBidet;
-    }
-
-    public Boolean getHasTissue() {
-        return hasTissue;
-    }
 }
 

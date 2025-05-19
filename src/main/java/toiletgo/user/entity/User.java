@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 import toiletgo.activities.entity.*;
 
-import java.util.List;
+import java.util.*;
 
-@Entity
+
 @Data
-
+@Entity
 public class User {
     @Id
     @Column(name = "user_id", nullable = false, unique = true)
@@ -43,11 +43,6 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Gift> gifts;
-
-
-
-
-
 
 }
 

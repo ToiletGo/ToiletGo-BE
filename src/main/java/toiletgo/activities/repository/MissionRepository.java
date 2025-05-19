@@ -1,4 +1,7 @@
 package toiletgo.activities.repository;
 
-public interface MissionRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import toiletgo.activities.entity.Mission;
+
+public interface MissionRepository extends JpaRepository<Mission, Long> {
 }

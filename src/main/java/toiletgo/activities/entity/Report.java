@@ -7,24 +7,25 @@ import toiletgo.user.entity.User;
 
 import java.time.LocalDateTime;
 
-@Entity
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false, name = "report_id")
     private Integer reportId;
 
-    @ManyToOne
+    @ManyToOne // optional = true
     @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne // optional = true
     @JsonIgnore
     @JoinColumn(name="review_id", nullable = false)
     private Review review;

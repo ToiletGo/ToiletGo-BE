@@ -1,4 +1,7 @@
 package toiletgo.activities.repository;
 
-public interface GiftRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import toiletgo.activities.entity.Gift;
+
+public interface GiftRepository extends JpaRepository<Gift, Long> {
 }

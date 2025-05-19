@@ -1,14 +1,16 @@
 package toiletgo.activities.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import toiletgo.user.entity.User;
 
-@Entity
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
 public class Mission {
 
     @Id
@@ -30,4 +32,9 @@ public class Mission {
 
     @OneToOne(mappedBy = "mission", cascade = CascadeType.ALL)
     private MissionList missionList;
+
+    @ManyToOne // optional = true
+    @JsonIgnore
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

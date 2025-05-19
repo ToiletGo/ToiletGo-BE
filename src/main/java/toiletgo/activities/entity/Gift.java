@@ -9,11 +9,12 @@ import toiletgo.user.entity.*;
 import java.util.List;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Entity
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
 public class Gift {
 
     @Id
@@ -26,7 +27,7 @@ public class Gift {
     private User user;
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "giftList")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "gift")
     private GiftList giftList;
 
     @Column(name = "is_used")

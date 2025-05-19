@@ -7,11 +7,12 @@ import toiletgo.user.entity.*;
 
 import java.time.LocalDateTime;
 
-@Entity
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
 public class MissionList {
 
     @Id

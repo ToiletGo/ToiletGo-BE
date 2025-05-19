@@ -36,7 +36,7 @@ public class GiftList {
     private Boolean isAssigned;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "giftList")
+    @OneToOne(mappedBy = "gift")
     private Gift gift;
 
 }
