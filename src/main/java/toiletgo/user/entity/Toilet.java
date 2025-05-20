@@ -1,7 +1,7 @@
 package toiletgo.user.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 // import toiletgo.activities.entity.Review;
 
 import java.math.BigDecimal;
@@ -10,6 +10,11 @@ import java.util.*;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Builder
 public class Toilet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

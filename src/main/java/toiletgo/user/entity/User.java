@@ -1,7 +1,7 @@
 package toiletgo.user.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import toiletgo.activities.entity.Gift;
 import toiletgo.activities.entity.Mission;
 import toiletgo.activities.entity.Report;
@@ -13,6 +13,11 @@ import java.util.*;
 
 @Data
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
 
     @Id

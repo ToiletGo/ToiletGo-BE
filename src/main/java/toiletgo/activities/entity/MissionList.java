@@ -28,7 +28,7 @@ public class MissionList {
     @Column(name= "mission_name")
     private String mission_name;
 
-    @Column(name = "is_completed", nullable = false)
+    @Column(name = "mission_type", nullable = false)
     private Boolean missionType;
 
     @Column(name = "point", nullable = false)
