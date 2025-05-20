@@ -27,8 +27,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(name="user_role", nullable = false)
-    private String userRole;
+    // @Column(name="user_role", nullable = false)
+    // private String userRole;
 
     @Column(name = "user_point")
     private Integer userPoint;
@@ -51,12 +51,10 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Gift> gifts;
 
-    public User(String userId, String username, String password, String userRole) {
+    public User(String userId, String username, String password) {
         this.userId = userId;
         this.username = username;
         this.password = password;
-        this.userRole = userRole;
-
     }
 
 }
