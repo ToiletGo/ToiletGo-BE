@@ -2,6 +2,7 @@ package toiletgo.user.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import toiletgo.activities.entity.Gift;
 import toiletgo.activities.entity.Mission;
 import toiletgo.activities.entity.Report;
@@ -13,6 +14,7 @@ import java.util.*;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -24,6 +26,9 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(name="user_role", nullable = false)
+    private String userRole;
 
     @Column(name = "user_point")
     private Integer userPoint;
@@ -46,7 +51,13 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Gift> gifts;
 
+    public User(String userId, String username, String password, String userRole) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.userRole = userRole;
 
+    }
 
 }
 

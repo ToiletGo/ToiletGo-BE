@@ -33,8 +33,8 @@ public class Mission {
     @Column(name = "mission_progress", length = 1024)
     private Integer progress;
 
-    @Column(name = "is_complement")
-    private Boolean isComplement;
+    @Column(name = "is_completed")
+    private Boolean isCompleted;
 
     @Column(name = "completed_at", nullable = false)
     private LocalDateTime completedAt;
