@@ -23,7 +23,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> getToken(@RequestBody AccountCredentials credentials) {
-        UsernamePasswordAuthenticationToken creds = new UsernamePasswordAuthenticationToken(credentials.username(),credentials.password());
+        UsernamePasswordAuthenticationToken creds = new UsernamePasswordAuthenticationToken(credentials.userid(),credentials.password());
         Authentication auth = authenticationManager.authenticate(creds);
 
         // token 생성
