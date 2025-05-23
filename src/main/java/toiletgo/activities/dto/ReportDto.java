@@ -1,5 +1,7 @@
 package toiletgo.activities.dto;
 
+import toiletgo.activities.entity.*;
+import toiletgo.user.entity.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;

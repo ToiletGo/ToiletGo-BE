@@ -17,15 +17,13 @@ import java.util.List;
 @Builder
 @Entity
 public class Gift {
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "gift_no")
     private Long giftNo;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "gift_id")
     private GiftList giftList;
 

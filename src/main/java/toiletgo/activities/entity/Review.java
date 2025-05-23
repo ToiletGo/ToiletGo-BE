@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.cglib.core.Local;
+import toiletgo.activities.dto.ReviewDto;
 import toiletgo.user.entity.*;
 
 import java.time.LocalDateTime;
@@ -26,12 +27,10 @@ public class Review {
     private List<Report> reports;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "toilet_id", nullable = false)
     private Toilet toilet;
 
@@ -48,4 +47,6 @@ public class Review {
 
     @Column(nullable = false, name = "review_at")
     private LocalDateTime reviewAt;
+
+
 }

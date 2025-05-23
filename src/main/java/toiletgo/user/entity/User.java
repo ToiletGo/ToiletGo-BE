@@ -1,7 +1,11 @@
 package toiletgo.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import toiletgo.activities.entity.Gift;
 import toiletgo.activities.entity.Mission;
 import toiletgo.activities.entity.Report;
@@ -11,13 +15,11 @@ import toiletgo.activities.entity.Review;
 import java.util.*;
 
 
-@Data
-@Entity
-@Getter
-@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Data
+@Entity
 public class User {
 
     @Id
@@ -30,8 +32,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(name="user_role", nullable = false)
-    private String userRole;
+    // @Column(name="user_role", nullable = false)
+    // private String userRole;
 
     @Column(name = "user_point")
     private Integer userPoint;
@@ -43,15 +45,19 @@ public class User {
     private String userProfileImg;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private List<Report> reports;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private List<Review> reviews;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private List<Mission> missions;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private List<Gift> gifts;
 
     public User(String userId, String username, String password) {

@@ -1,10 +1,13 @@
 package toiletgo.activities.dto;
 
+import toiletgo.activities.entity.MissionList;
 import lombok.Builder;
 import lombok.Data;
 import toiletgo.activities.entity.MissionList;
 
 import java.time.LocalDateTime;
+import toiletgo.activities.entity.*;
+import toiletgo.user.entity.*;
 
 @Data
 @Builder

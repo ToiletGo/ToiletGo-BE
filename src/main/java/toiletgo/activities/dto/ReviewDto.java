@@ -1,11 +1,13 @@
 package toiletgo.activities.dto;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.Builder;
 import lombok.Data;
-import toiletgo.activities.entity.Review;
-import toiletgo.user.entity.Toilet;
-import toiletgo.user.entity.User;
+import toiletgo.activities.entity.*;
+import toiletgo.user.entity.*;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Data

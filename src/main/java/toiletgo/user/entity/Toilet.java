@@ -1,20 +1,23 @@
 package toiletgo.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import toiletgo.activities.dto.ToiletDto;
+import toiletgo.activities.entity.Report;
 // import toiletgo.activities.entity.Review;
 
 import java.math.BigDecimal;
 import java.util.*;
 
-
-@Data
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 @Builder
+@Data
+@Entity
 public class Toilet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +35,9 @@ public class Toilet {
     @Column(nullable = false, precision = 11, scale = 2, name = "longitude")
     private BigDecimal longitude;
 
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "toilet")
+    @JsonIgnore
+    private Set<Report> report;
 
     @Column(name="building_name")
     private String buildingName;
@@ -84,6 +90,30 @@ public class Toilet {
     @Column(name="has_tissue")
     private Boolean hasTissue;
 
+
+    public ToiletDto toDto() {
+        return ToiletDto.builder()
+                .toiletId(this.getToiletId())
+                .roadAddress(this.getRoadAddress())
+                .lotAddress(this.getLotAddress())
+                .latitude(this.getLatitude())
+                .longitude(this.getLongitude())
+                .buildingName(this.getBuildingName())
+                .telNo(this.getTelNo())
+                .toiletType(this.getToiletType())
+                .openTime(this.getOpenTime())
+                .toiletUsage(this.getToiletUsage())
+                .toiletStatus(this.getToiletStatus())
+                .facilities(this.getFacilities())
+                .signInfo(this.getSignInfo())
+                .note(this.getNote())
+                .rating(this.getRating())
+                .hasDiaperTable(this.getHasDiaperTable())
+                .hasHandicapAccess(this.getHasHandicapAccess())
+                .hasBidet(this.getHasBidet())
+                .hasTissue(this.getHasTissue())
+                .build();
+    }
 
 }
 
