@@ -1,6 +1,5 @@
 package toiletgo.activities.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +15,9 @@ import java.util.Date;
 @Entity
 public class GiftList {
 
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "gift_id")
     private Long giftId;
 
@@ -30,12 +30,25 @@ public class GiftList {
     @Column(name = "gift_type")
     private String giftType;
 
-    @Column(name = "serial_no")
-    private String serialNo;
+    @Column(name = "point")
+    private Integer point;
+
+    @Column(name = "gift_url", length = 2000)
+    private String url;
 
     @Column(name = "expiration")
     private LocalDate expiration;
 
     @Column(name = "is_assigned")
     private Boolean isAssigned;
+
+
+
+    public GiftList(String giftType, String url, Integer point,  LocalDate expiration, Boolean isAssigned) {
+        this.giftType = giftType;
+        this.url = url;
+        this.point = point;
+        this.expiration = expiration;
+        this.isAssigned = isAssigned;
+    }
 }

@@ -3,10 +3,11 @@ package toiletgo.activities.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import toiletgo.user.entity.*;
 
-import java.time.LocalDateTime;
-
+/**
+ * MissionList : table mission_list
+ * 미션 목록
+ */
 
 @Data
 @NoArgsConstructor
@@ -16,20 +17,29 @@ import java.time.LocalDateTime;
 public class MissionList {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mission_id")
     private Long missionId;
 
     @OneToOne(mappedBy = "missionList")
+    @JsonIgnore
     private Mission mission;
 
     @Column(name = "description", length = 1024)
     private String description;
 
     @Column(name= "mission_name")
-    private String mission_name;
+    private String missionName;
+
 
     @Column(name = "point", nullable = false)
     private Integer point;
+
+    public MissionList(String description, String missionName, Integer point){
+        this.description = description;
+        this.missionName = missionName;
+        this.point = point;
+    }
 
 }
 

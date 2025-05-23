@@ -1,4 +1,4 @@
-package toiletgo.user.auth;
+package toiletgo.user.service;
 
 
 import org.springframework.security.core.userdetails.UserDetails;

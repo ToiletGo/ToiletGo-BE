@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import toiletgo.user.auth.AccountCredentials;
-import toiletgo.user.auth.JwtService;
+import toiletgo.user.service.JwtService;
 
 @RestController
 public class LoginController {

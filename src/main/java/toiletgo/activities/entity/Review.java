@@ -36,7 +36,7 @@ public class Review {
 
 
 
-    @Column(nullable = false, name="rating")
+    @Column(nullable = true, name="rating")
     private Integer rating;  // 0.0 ~ 5.0
 
     @Column(length = 500, name = "comment")
@@ -47,6 +47,14 @@ public class Review {
 
     @Column(nullable = false, name = "review_at")
     private LocalDateTime reviewAt;
+
+    public Review(User user, Toilet toilet, Integer rating, String comment, LocalDateTime reviewAt) {
+        this.user = user;
+        this.toilet = toilet;
+        this.rating = rating;
+        this.comment = comment;
+        this.reviewAt = reviewAt;
+    }
 
 
 }

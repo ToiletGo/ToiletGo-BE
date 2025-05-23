@@ -21,8 +21,10 @@ import java.util.stream.Collectors;
 
 @RestController
 public class ReportController {
+
     @Autowired
     ReportRepository reportRepository;
+
     @Autowired
     UserRepository userRepository;
     @Autowired
