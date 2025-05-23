@@ -3,10 +3,7 @@ package toiletgo.activities.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import toiletgo.activities.dto.GiftDto;
 import toiletgo.activities.dto.GiftListDto;
 import toiletgo.activities.dto.MissionListDto;
@@ -15,6 +12,7 @@ import toiletgo.activities.entity.GiftList;
 import toiletgo.activities.entity.Mission;
 import toiletgo.activities.repository.GiftListRepository;
 import toiletgo.activities.repository.GiftRepository;
+import toiletgo.user.entity.User;
 import toiletgo.user.repository.UserRepository;
 
 import java.util.List;
@@ -63,28 +61,30 @@ public class GiftController {
     }
 
     //선물 구입
-    @PatchMapping("/api/gifts/{giftId}")
-    public ResponseEntity<String> buyGift(@PathVariable Long no){
+    @PatchMapping("/api/gifts/purchase/{userId}/{giftId}")
+    public ResponseEntity<String> buyGift(@PathVariable String userId, @PathVariable Long giftId){
         try{
-            Gift gift = giftRepository.findById(no).orElse(null);
+            GiftList gift = giftListRepository.findById(giftId).orElse(null);
             if(gift == null){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 미션이 존재하지 않습니다.");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 선물이 존재하지 않습니다.");
             }
-            gift.setIsUsed(true);
-            giftRepository.save(gift);
+            gift.setIsAssigned(true);
 
-            return ResponseEntity.status(HttpStatus.OK).body("사용완료 처리되었습니다.");
+            User user = userRepository.findById(userId).orElse(null);
+            Gift myGift = new Gift(gift,user,false,false);
+            giftRepository.save(myGift);
+
+            return ResponseEntity.status(HttpStatus.OK).body("구매가 완료되었습니다.");
         } catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("미션 완료 처리 중 오류 발생: " + e.getMessage());
+                    .body("기프티콘 구매중 오류 발생: " + e.getMessage());
         }
-
     }
 
     //선물 기한만료
 
     @PatchMapping("/api/gifts/{giftId}/use")
-    public ResponseEntity<String> useGift(@PathVariable Long no){
+    public ResponseEntity<String> (@PathVariable Long no){
         try{
             Gift gift = giftRepository.findById(no).orElse(null);
             if(gift == null){
