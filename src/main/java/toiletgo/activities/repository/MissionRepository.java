@@ -1,7 +1,12 @@
 package toiletgo.activities.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import toiletgo.activities.entity.Mission;
 
+import java.util.List;
+
 public interface MissionRepository extends JpaRepository<Mission, Long> {
+    @Query(value = "SELECT * FROM mission WHERE user_id = :userId ORDER BY RAND() LIMIT 3", nativeQuery = true)
+    List<Mission> findRandomMissionsByUserId(String userId);
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import toiletgo.activities.dto.GiftDto;
 import toiletgo.user.entity.*;
 
 import java.util.List;
@@ -39,5 +40,18 @@ public class Gift {
 
     @Column(name = "is_expired")
     private Boolean isExpired;
+
+    public GiftDto toDto() {
+        return GiftDto.builder()
+                .giftNo(this.giftNo)
+                .userId(this.user != null ? this.user.getUserId() : null)
+                .giftType(this.giftList != null ? this.giftList.getGiftType() : null)
+                .giftSerial(this.giftList != null ? this.giftList.getSerialNo() : null)
+                .expiration(this.giftList != null ? this.giftList.getExpiration() : null)
+                .isAssigned(this.giftList != null ? this.giftList.getIsAssigned() : null)
+                .isUsed(this.isUsed)
+                .isExpired(this.isExpired)
+                .build();
+    }
 }
 

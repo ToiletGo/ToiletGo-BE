@@ -5,24 +5,20 @@ import toiletgo.user.entity.*;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 public class MissionDto {
-    private Long missionId;
-    private String title;
-    private String description;
-    private Integer rewardPoint;
-    private String missionType;
-    private Boolean isActive;
+    private Long missionNo;
+    private String userId;
 
-    public MissionDto toDto(Mission mission) {
-        return MissionDto.builder()
-                .missionId(mission.getMissionId())
-                .title(mission.getTitle())
-                .description(mission.getDescription())
-                .rewardPoint(mission.getRewardPoint())
-                .missionType(mission.getMissionType())
-                .isActive(mission.getIsActive())
-                .build();
-    }
+    private Long missionId;
+    private String missionName;
+    private String description;
+    private Boolean missionType; // 미션 완료 여부가 아님! 종류 (ex. 방문형, 리뷰형 등)
+
+    private Integer progress;
+    private Boolean isCompleted;
+    private LocalDateTime completedAt;
 }

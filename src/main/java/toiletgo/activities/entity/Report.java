@@ -21,7 +21,7 @@ public class Report {
 
     @ManyToOne // optional = true
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private U user;
 
     @ManyToOne // optional = true
     @JoinColumn(name="review_id", nullable = false)
