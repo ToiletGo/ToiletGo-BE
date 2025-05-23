@@ -20,25 +20,16 @@ public class UserDto {
 
     private String userId;
     private String username;
+    private String password;
     private Integer userPoint;
     private Integer userTrust;
     private String userProfileImg;
-
-    public static UserDto toDto(User user) {
-        return UserDto.builder()
-                .userId(user.getUserId())
-                .username(user.getUsername())
-                .userPoint(user.getUserPoint())
-                .userTrust(user.getUserTrust())
-                .userProfileImg(user.getUserProfileImg())
-                .build();
-    }
 
     public User toEntity() {
         return User.builder()
                 .userId(this.userId)
                 .username(this.username)
-                .password(null) // 비밀번호는 보통 별도로 처리함
+                .password(this.password)
                 .userPoint(this.userPoint)
                 .userTrust(this.userTrust)
                 .userProfileImg(this.userProfileImg)

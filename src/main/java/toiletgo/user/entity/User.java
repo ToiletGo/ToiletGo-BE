@@ -10,6 +10,7 @@ import toiletgo.activities.entity.Gift;
 import toiletgo.activities.entity.Mission;
 import toiletgo.activities.entity.Report;
 import toiletgo.activities.entity.Review;
+import toiletgo.user.dto.UserDto;
 // import toiletgo.activities.entity.*;
 
 import java.util.*;
@@ -61,6 +62,16 @@ public class User {
         this.userId = userId;
         this.username = username;
         this.password = password;
+    }
+
+    public UserDto toDto() {
+        return UserDto.builder()
+                .userId(this.getUserId())
+                .username(this.getUsername())
+                .userPoint(this.getUserPoint())
+                .userTrust(this.getUserTrust())
+                .userProfileImg(this.getUserProfileImg())
+                .build();
     }
 
 }

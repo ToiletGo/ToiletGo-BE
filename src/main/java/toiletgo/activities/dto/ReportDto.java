@@ -29,18 +29,6 @@ public class ReportDto {
     private boolean isProcessed;
     private LocalDateTime reportAt;
 
-    public static ReportDto toDto(Report report) {
-        return ReportDto.builder()
-                .userId(report.getUser() != null ? report.getUser().getUserId() : null)
-                .toiletId(report.getToilet() != null ? report.getToilet().getToiletId() : null)
-                .reviewId(report.getReview() != null ? report.getReview().getReviewId() : null)
-                .reportType(report.getReportType())
-                .description(report.getDescription())
-                .isProcessed(report.isProcessed())
-                .reportAt(report.getReportAt())
-                .build();
-    }  private Integer reportId;
-
     public Report toEntity(User user, Toilet toilet, Review review) {
         return Report.builder()
                 .user(user)
