@@ -1,6 +1,7 @@
 package toiletgo.activities.dto;
 
-import toiletgo.entity.Toilet;
+import toiletgo.activities.entity.*;
+import toiletgo.user.entity.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,8 +1,8 @@
 package toiletgo.activities.controller;
 
 import toiletgo.activities.dto.ToiletDto;
-import toiletgo.entity.Toilet;
-import toiletgo.repository.ToiletRepository;
+import toiletgo.user.entity.Toilet;
+import toiletgo.user.repository.ToiletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

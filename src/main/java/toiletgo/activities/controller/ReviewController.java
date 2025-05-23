@@ -5,11 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import toiletgo.activities.dto.ReviewDto;
-import toiletgo.entity.Review;
-import toiletgo.repository.ReviewRepository;
+import toiletgo.activities.entity.Review;
+import toiletgo.activities.repository.ReviewRepository;
 
 @RestController
 public class ReviewController {
+
+
     @Autowired
     ReviewRepository reviewRepository;
     @PostMapping("/api/reviews/{toiletId}")
@@ -23,6 +25,7 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("등록 중 오류가 발생했습니다.");
         }
     }
+
 
     @GetMapping("/api/toilets/{toiltId}")
     public ResponseEntity<ReviewDto> getReview(@PathVariable Long toiletId){

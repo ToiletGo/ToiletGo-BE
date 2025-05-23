@@ -2,6 +2,8 @@ package toiletgo.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import toiletgo.activities.entity.Gift;
@@ -13,9 +15,11 @@ import toiletgo.activities.entity.Review;
 import java.util.*;
 
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
-@NoArgsConstructor
 public class User {
 
     @Id

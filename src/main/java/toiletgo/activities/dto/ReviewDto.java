@@ -2,9 +2,10 @@ package toiletgo.activities.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import toiletgo.entity.Review;
 import lombok.Builder;
 import lombok.Data;
+import toiletgo.activities.entity.*;
+import toiletgo.user.entity.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

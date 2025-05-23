@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.cglib.core.Local;
+import toiletgo.activities.dto.ReviewDto;
 import toiletgo.user.entity.*;
 
 import java.time.LocalDateTime;
@@ -46,6 +47,17 @@ public class Review {
 
     @Column(nullable = false, name = "review_at")
     private LocalDateTime reviewAt;
+
+    public ReviewDto toDto() {
+        return ReviewDto.builder()
+                .reviewId(this.getReviewId())
+                .userId(this.getUserId())
+                .toiletId(this.getToiletId())
+                .rating(this.getRating())
+                .comment(this.getComment())
+                .createdAt(this.getCreatedAt())
+                .build();
+    }
 
 
 }
