@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import toiletgo.activities.entity.Report;
 import toiletgo.activities.entity.Review;
+import toiletgo.user.entity.Toilet;
 import toiletgo.user.entity.User;
 
 import java.time.LocalDateTime;
@@ -18,7 +19,8 @@ import java.time.LocalDateTime;
 @Builder
 public class ReportDto {
 
-    private String userId;       // User → user.getUserId()
+    private String userId;
+    private Long toiletId;       // Toilet → toilet.getUserId()
     private Long reviewId;       // Review → review.getReviewId()
 
     private String reportType;
@@ -30,6 +32,7 @@ public class ReportDto {
     public static ReportDto toDto(Report report) {
         return ReportDto.builder()
                 .userId(report.getUser() != null ? report.getUser().getUserId() : null)
+                .toiletId(report.getToilet() != null ? report.getToilet().getToiletId() : null)
                 .reviewId(report.getReview() != null ? report.getReview().getReviewId() : null)
                 .reportType(report.getReportType())
                 .description(report.getDescription())
@@ -38,9 +41,10 @@ public class ReportDto {
                 .build();
     }  private Integer reportId;
 
-    public Report toEntity(User user, Review review) {
+    public Report toEntity(User user, Toilet toilet, Review review) {
         return Report.builder()
                 .user(user)
+                .toilet(toilet)
                 .review(review)
                 .reportType(this.reportType)
                 .description(this.description)
