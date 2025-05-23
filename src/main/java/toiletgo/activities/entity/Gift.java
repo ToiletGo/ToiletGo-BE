@@ -17,9 +17,6 @@ import java.util.List;
 @Builder
 @Entity
 public class Gift {
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "gift_no")

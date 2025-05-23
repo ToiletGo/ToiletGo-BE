@@ -1,11 +1,13 @@
 package toiletgo.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import toiletgo.activities.dto.ToiletDto;
+import toiletgo.activities.entity.Report;
 // import toiletgo.activities.entity.Review;
 
 import java.math.BigDecimal;
@@ -33,6 +35,9 @@ public class Toilet {
     @Column(nullable = false, precision = 11, scale = 2, name = "longitude")
     private BigDecimal longitude;
 
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "toilet")
+    @JsonIgnore
+    private Set<Report> report;
 
     @Column(name="building_name")
     private String buildingName;

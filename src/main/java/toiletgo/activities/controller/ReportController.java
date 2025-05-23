@@ -12,15 +12,22 @@ import toiletgo.user.repository.UserRepository;
 
 @RestController
 public class ReportController {
+
     @Autowired
     ReportRepository reportRepository;
+
     @Autowired
     UserRepository UserRepository;
+
     @Autowired
     ReportRepository reviewRepository;
+
     @PostMapping("/api/report/toilet")
     public ResponseEntity<String> reportToilet(@RequestBody ReportDto reportDto){
 
         Report report = reportDto.toEn
     }
+
+
+
 }

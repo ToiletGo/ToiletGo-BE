@@ -30,6 +30,96 @@ test directory 안의 패키지 구조는 main\java와 똑같이 해주세요
 - 신고 정보
 
 
+```java
+User
+private String userId;
+private String username;
+private String password;
+private Integer userPoint;
+private Integer userTrust;
+
+
+
+//
+
+Toilet
+
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long toiletId;
+
+@Column(name="road_address")
+private String roadAddress;
+
+@Column(name="lot_address")
+private String lotAddress;
+
+@Column(nullable = false, precision = 11, scale = 2, name = "latitude")
+private BigDecimal latitude;
+
+@Column(nullable = false, precision = 11, scale = 2, name = "longitude")
+private BigDecimal longitude;
+
+@OneToMany(cascade = CascadeType.ALL,mappedBy = "toilet")
+@JsonIgnore
+private Set<Report> report;
+
+@Column(name="building_name")
+private BigDecimal longitude;
+
+@Column(name="gu_name")
+private String guName;
+
+@Column(name="tel_no")
+private String telNo;
+
+@Column(name="toilet_type")
+private String toiletType;
+
+@Column(name="open_time")
+private String openTime;
+
+@Column(name="toilet_usage")
+private String toiletUsage;
+
+@Column(name="toilet_status")
+private String toiletStatus;
+
+@Column(name="location_detail")
+private String locationDetail;
+
+
+@Lob
+@Column(name="facilities")
+private String facilities;
+
+@Column(name="sign_info")
+private String signInfo;
+
+@Lob
+@Column(name="note")
+private String note;
+
+@Column(precision = 3, scale = 2, name = "rating")
+private BigDecimal rating;
+
+@Column(name="has_diaper_table")
+private Boolean hasDiaperTable;
+
+@Column(name="has_handicap_access")
+private Boolean hasHandicapAccess;
+
+@Column(name="has_bidet")
+private Boolean hasBidet;
+
+@Column(name="has_tissue")
+private Boolean hasTissue;
+
+
+
+```
+
+
 ## API
 
 

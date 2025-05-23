@@ -48,16 +48,5 @@ public class Review {
     @Column(nullable = false, name = "review_at")
     private LocalDateTime reviewAt;
 
-    public ReviewDto toDto() {
-        return ReviewDto.builder()
-                .reviewId(this.getReviewId())
-                .userId(this.getUserId())
-                .toiletId(this.getToiletId())
-                .rating(this.getRating())
-                .comment(this.getComment())
-                .createdAt(this.getCreatedAt())
-                .build();
-    }
-
 
 }

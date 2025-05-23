@@ -3,6 +3,7 @@ package toiletgo.activities.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import toiletgo.user.entity.Toilet;
 import toiletgo.user.entity.User;
 
 import java.time.LocalDateTime;
@@ -21,11 +22,15 @@ public class Report {
 
     @ManyToOne // optional = true
     @JoinColumn(name = "user_id", nullable = false)
-    private U user;
+    private User user;
 
     @ManyToOne // optional = true
     @JoinColumn(name="review_id", nullable = false)
     private Review review;
+
+    @ManyToOne // optional = true
+    @JoinColumn(name="toilet_id", nullable = false)
+    private Toilet toilet;
 
     @Column(name = "report_type", nullable = false)
     private String reportType;

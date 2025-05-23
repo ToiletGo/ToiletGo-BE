@@ -3,10 +3,12 @@ package toiletgo.user.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import toiletgo.user.entity.Toilet;
 
 import java.util.List;
 
+@Repository
 public interface ToiletRepository extends JpaRepository<Toilet, Long> {
     @Query("SELECT t FROM Toilet t WHERE " +
             "t.latitude BETWEEN :minLat AND :maxLat AND " +
