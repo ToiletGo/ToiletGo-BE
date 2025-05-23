@@ -17,6 +17,7 @@ import java.util.Date;
 @Entity
 public class GiftList {
 
+
     @Id
     @Column(name = "gift_id")
     private Long giftId;
@@ -38,4 +39,14 @@ public class GiftList {
 
     @Column(name = "is_assigned")
     private Boolean isAssigned;
+
+
+
+    public GiftList(Gift gift, String giftType, String serialNo, LocalDate expiration, Boolean isAssigned) {
+        this.gift = gift;
+        this.giftType = giftType;
+        this.serialNo = serialNo;
+        this.expiration = expiration;
+        this.isAssigned = isAssigned;
+    }
 }

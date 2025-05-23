@@ -26,22 +26,19 @@ public class User {
     @Column(name = "user_id", nullable = false, unique = true)
     private String userId;
 
-    @Column(nullable = false)
+    @Column(name="username", nullable = false)
     private String username;
 
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    // @Column(name="user_role", nullable = false)
-    // private String userRole;
-
-    @Column(name = "user_point")
+    @Column(name = "user_point", nullable = true)
     private Integer userPoint;
 
-    @Column(name = "user_trust")
+    @Column(name = "user_trust", nullable = true)
     private Integer userTrust;
 
-    @Column(name = "user_profile_img")
+    @Column(name = "user_profile_img", nullable = true)
     private String userProfileImg;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -68,3 +65,5 @@ public class User {
 
 }
 
+// @Column(name="user_role", nullable = false)
+// private String userRole;

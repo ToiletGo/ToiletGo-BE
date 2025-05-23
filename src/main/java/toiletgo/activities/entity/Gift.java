@@ -27,7 +27,6 @@ public class Gift {
     @JoinColumn(name = "gift_id")
     private GiftList giftList;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -37,6 +36,13 @@ public class Gift {
 
     @Column(name = "is_expired")
     private Boolean isExpired;
+
+    public Gift(GiftList giftList, User user, Boolean isUsed, Boolean isExpired){
+        this.giftList = giftList;
+        this.user = user;
+        this.isUsed = isUsed;
+        this.isExpired = isExpired;
+    }
 
     public GiftDto toDto() {
         return GiftDto.builder()

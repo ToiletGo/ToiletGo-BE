@@ -1,4 +1,4 @@
-package toiletgo.user.auth;
+package toiletgo.user.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

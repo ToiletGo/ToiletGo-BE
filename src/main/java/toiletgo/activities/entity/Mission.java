@@ -3,7 +3,6 @@ package toiletgo.activities.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import toiletgo.activities.dto.MissionDto;
 import toiletgo.activities.dto.MissionListDto;
 import toiletgo.user.entity.User;
 
@@ -40,10 +39,17 @@ public class Mission {
     @Column(name = "completed_at", nullable = false)
     private LocalDateTime completedAt;
 
+    public Mission(User user, Integer progress, Boolean isCompleted, LocalDateTime completedAt) {
+        this.user = user;
+        this.progress = progress;
+        this.isCompleted = isCompleted;
+        this.completedAt = completedAt;
+    }
+
     public MissionListDto toDto() {
         return MissionListDto.builder()
                 .missionId(this.missionList.getMissionId())           // 미션 ID
-                .missionName(this.missionList.getMission_name())      // 미션 이름
+                .missionName(this.missionList.getMissionName())      // 미션 이름
                 .description(this.missionList.getDescription())       // 설명
                 .missionType(this.missionList.getMissionType())       // 타입
                 .point(this.missionList.getPoint())                   // 포인트 여부

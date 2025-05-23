@@ -23,12 +23,6 @@ public class Report {
     @ManyToOne // optional = true
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    private User user;
-
-    @ManyToOne // optional = true
-    @JsonIgnore
-    @JoinColumn(name = "toilet_id", nullable = false)
-    private Toilet toilet;
 
     @ManyToOne // optional = true
     @JoinColumn(name="review_id", nullable = false)
