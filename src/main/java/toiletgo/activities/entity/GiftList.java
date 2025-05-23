@@ -30,6 +30,9 @@ public class GiftList {
     @Column(name = "gift_type")
     private String giftType;
 
+    @Column(name = "point")
+    private Integer point;
+
     @Column(name = "gift_url", length = 2000)
     private String url;
 
@@ -41,9 +44,10 @@ public class GiftList {
 
 
 
-    public GiftList(String giftType, String url, LocalDate expiration, Boolean isAssigned) {
+    public GiftList(String giftType, String url, Integer point,  LocalDate expiration, Boolean isAssigned) {
         this.giftType = giftType;
         this.url = url;
+        this.point = point;
         this.expiration = expiration;
         this.isAssigned = isAssigned;
     }
