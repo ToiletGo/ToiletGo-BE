@@ -21,7 +21,6 @@ public class Mission {
     @Column(nullable = false, name = "mission_no")
     private Long missionNo;
 
-    @JsonIgnore
     @JoinColumn(name="mission_id")
     @OneToOne(cascade = CascadeType.ALL)
     private MissionList missionList;
@@ -39,11 +38,14 @@ public class Mission {
     @Column(name = "completed_at", nullable = false)
     private LocalDateTime completedAt;
 
-    public Mission(User user, Integer progress, Boolean isCompleted, LocalDateTime completedAt) {
+    public Mission missionConstructor(MissionList missionList, User user, Integer progress, Boolean isCompleted, LocalDateTime completedAt) {
+        this.missionList = missionList;
         this.user = user;
         this.progress = progress;
         this.isCompleted = isCompleted;
         this.completedAt = completedAt;
+
+        return this;
     }
 
     public MissionListDto toDto() {

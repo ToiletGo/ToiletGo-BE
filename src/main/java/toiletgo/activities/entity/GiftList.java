@@ -19,6 +19,7 @@ public class GiftList {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "gift_id")
     private Long giftId;
 

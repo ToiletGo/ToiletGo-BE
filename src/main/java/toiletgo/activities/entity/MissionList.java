@@ -1,5 +1,6 @@
 package toiletgo.activities.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,10 +17,12 @@ import lombok.*;
 public class MissionList {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mission_id")
     private Long missionId;
 
     @OneToOne(mappedBy = "missionList")
+    @JsonIgnore
     private Mission mission;
 
     @Column(name = "description", length = 1024)
@@ -34,8 +37,7 @@ public class MissionList {
     @Column(name = "point", nullable = false)
     private Integer point;
 
-    public MissionList(Mission mission, String description, String missionName, String missionType, Integer point){
-        this.mission = mission;
+    public MissionList(String description, String missionName, String missionType, Integer point){
         this.description = description;
         this.missionName = missionName;
         this.missionType = Boolean.parseBoolean(missionType);

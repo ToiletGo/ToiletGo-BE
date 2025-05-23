@@ -56,8 +56,10 @@ public class Application implements CommandLineRunner {
 		Toilet toilet2 = new Toilet("서초구 신반포로 12", new BigDecimal("126.99999929"), new BigDecimal("36.00000001"));
 
 
-		Mission mission1 = new Mission(user1, 8, false, false, LocalDateTime.now());
-		MissionList missionList1 = new MissionList(mission1, "화장실 10개에 리뷰 남기기", "리뷰 작성-2", "사용", 10);
+		MissionList missionList1 = new MissionList("화장실 3개에 리뷰 남기기", "리뷰 작성-1", "사용", 10);
+		MissionList missionList2 = new MissionList("화장실 10개에 리뷰 남기기", "리뷰 작성-2", "사용", 10);
+		Mission mission1 = new Mission().missionConstructor(missionList2, user1, 8, false, LocalDateTime.now());
+
 
 		userRepository.save(user1);
 		userRepository.save(new User("admin_id", "admin", "$2a$12$T05/pakINgU7nUagCdInRe8rC6xPK1sHuhxlUuSIQPENfAogqeGpG"));
@@ -67,23 +69,11 @@ public class Application implements CommandLineRunner {
 
 		reviewRepository.save(new Review(user1, toilet2, 5, "최고예요!", LocalDateTime.now()));
 
+		missionListRepository.save(mission1);
+		missionRepository.save(mission1);
+
 
 	}
 
 	// test - bash
-}
-
-public MissionList(Mission mission, String description, String missionName, String missionType, Integer point){
-	this.mission = mission;
-	this.description = description;
-	this.missionName = missionName;
-	this.missionType = Boolean.parseBoolean(missionType);
-	this.point = point;
-}
-
-public Mission(User user, Integer progress, Boolean isCompleted, LocalDateTime completedAt) {
-	this.user = user;
-	this.progress = progress;
-	this.isCompleted = isCompleted;
-	this.completedAt = completedAt;
 }
