@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import toiletgo.activities.dto.GiftDto;
+import toiletgo.activities.dto.GiftListDto;
 import toiletgo.activities.dto.MissionListDto;
 import toiletgo.activities.entity.Gift;
 import toiletgo.activities.entity.GiftList;

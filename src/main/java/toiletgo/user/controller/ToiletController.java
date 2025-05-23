@@ -58,11 +58,11 @@ public class ToiletController {
 
 
     @GetMapping("/api/toilets")
-    public ResponseEntity<List<toiletgo.activities.dto.ToiletDto>> getToilets(){
+    public ResponseEntity<List<ToiletDto>> getToilets(){
         List<Toilet> toilets = toiletRepository.findAll();
 
         if (!toilets.isEmpty()) {
-            List<toiletgo.activities.dto.ToiletDto> toiletDtos = toilets.stream()
+            List<ToiletDto> toiletDtos = toilets.stream()
                     .map(toilet -> toilet.toDto())
                     .collect(Collectors.toList());
 
@@ -73,10 +73,10 @@ public class ToiletController {
     }
 
     @GetMapping("/api/toilet/{toiletId}")
-    public ResponseEntity<toiletgo.activities.dto.ToiletDto> getToilet(@PathVariable Long toiletId){
+    public ResponseEntity<ToiletDto> getToilet(@PathVariable Long toiletId){
         Toilet toilet = toiletRepository.findById(toiletId).orElse(null);
         if(toilet != null){
-            toiletgo.activities.dto.ToiletDto toiletDto = toilet.toDto();
+            ToiletDto toiletDto = toilet.toDto();
             return ResponseEntity.status(HttpStatus.OK).body(toiletDto);
         } else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -84,7 +84,7 @@ public class ToiletController {
     }
 
     @PostMapping("/api/toilet")
-    public ResponseEntity<String> createToilet(@RequestBody toiletgo.activities.dto.ToiletDto toiletDto){
+    public ResponseEntity<String> createToilet(@RequestBody ToiletDto toiletDto){
         try{
             Toilet toilet = toiletDto.toEntity();
             toiletRepository.save(toilet);
