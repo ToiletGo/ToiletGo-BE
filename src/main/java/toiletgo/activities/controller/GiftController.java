@@ -39,7 +39,7 @@ public class GiftController {
         }
 
         List<GiftListDto> missionListDtoList = gifts.stream()
-                .map(mission -> mission.toDto())
+                .map(giftList -> giftList.toDto())
                 .collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(missionListDtoList);
@@ -63,7 +63,7 @@ public class GiftController {
     }
 
     //선물 구입
-    @PatchMapping("/api/gifts/{giftId}/use")
+    @PatchMapping("/api/gifts/{giftId}")
     public ResponseEntity<String> buyGift(@PathVariable Long no){
         try{
             Gift gift = giftRepository.findById(no).orElse(null);
