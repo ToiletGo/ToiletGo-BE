@@ -26,12 +26,10 @@ public class Review {
     private List<Report> reports;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "toilet_id", nullable = false)
     private Toilet toilet;
 
@@ -48,4 +46,6 @@ public class Review {
 
     @Column(nullable = false, name = "review_at")
     private LocalDateTime reviewAt;
+
+
 }

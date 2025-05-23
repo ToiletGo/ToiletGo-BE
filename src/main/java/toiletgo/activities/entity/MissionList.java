@@ -17,7 +17,7 @@ public class MissionList {
 
     @Id
     @Column(name = "mission_id")
-    private Long missionId;
+    private Long id;
 
     @OneToOne(mappedBy = "missionList")
     private Mission mission;

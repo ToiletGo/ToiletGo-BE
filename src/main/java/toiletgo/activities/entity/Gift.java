@@ -25,6 +25,7 @@ public class Gift {
     private Long giftNo;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "gift_id")
     private GiftList giftList;
 
