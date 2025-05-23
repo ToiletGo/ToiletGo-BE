@@ -6,6 +6,6 @@ import toiletgo.activities.entity.Mission;
 import toiletgo.activities.entity.MissionList;
 
 @Repository
-public interface MissionListRepository extends JpaRepository<Mission, Long> {
+public interface MissionListRepository extends JpaRepository<MissionList, Long> {
 
 }

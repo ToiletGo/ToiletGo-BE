@@ -31,16 +31,13 @@ public class MissionList {
     @Column(name= "mission_name")
     private String missionName;
 
-    @Column(name = "mission_type", nullable = false)
-    private Boolean missionType;
 
     @Column(name = "point", nullable = false)
     private Integer point;
 
-    public MissionList(String description, String missionName, String missionType, Integer point){
+    public MissionList(String description, String missionName, Integer point){
         this.description = description;
         this.missionName = missionName;
-        this.missionType = Boolean.parseBoolean(missionType);
         this.point = point;
     }
 

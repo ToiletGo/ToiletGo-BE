@@ -7,8 +7,6 @@ import lombok.*;
 import toiletgo.activities.dto.GiftDto;
 import toiletgo.user.entity.*;
 
-import java.util.List;
-
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
 @Data
@@ -22,8 +20,8 @@ public class Gift {
     @Column(name = "gift_no")
     private Long giftNo;
 
-    @OneToOne
     @JsonIgnore
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "gift_id")
     private GiftList giftList;
 
@@ -49,7 +47,7 @@ public class Gift {
                 .giftNo(this.giftNo)
                 .userId(this.user != null ? this.user.getUserId() : null)
                 .giftType(this.giftList != null ? this.giftList.getGiftType() : null)
-                .giftSerial(this.giftList != null ? this.giftList.getSerialNo() : null)
+                .giftSerial(this.giftList != null ? this.giftList.getUrl() : null)
                 .expiration(this.giftList != null ? this.giftList.getExpiration() : null)
                 .isAssigned(this.giftList != null ? this.giftList.getIsAssigned() : null)
                 .isUsed(this.isUsed)

@@ -22,7 +22,7 @@ public class Mission {
     private Long missionNo;
 
     @JoinColumn(name="mission_id")
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     private MissionList missionList;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -52,8 +52,7 @@ public class Mission {
         return MissionListDto.builder()
                 .missionId(this.missionList.getMissionId())           // 미션 ID
                 .missionName(this.missionList.getMissionName())      // 미션 이름
-                .description(this.missionList.getDescription())       // 설명
-                .missionType(this.missionList.getMissionType())       // 타입
+                .description(this.missionList.getDescription())       // 설명// 타입
                 .point(this.missionList.getPoint())                   // 포인트 여부
                 .progress(this.progress)                              // 사용자 진행도
                 .isCompleted(this.isCompleted)                       // 완료 여부
