@@ -42,7 +42,8 @@ public class GiftController {
 
         return ResponseEntity.status(HttpStatus.OK).body(missionListDtoList);
     }
-    @GetMapping("/api/gifts/{userid}")
+
+    @GetMapping("/api/gifts/{userId}")
     public ResponseEntity<List<GiftDto>> getUserGifts(@PathVariable String userId){
         try {
             List<Gift> gifts = giftRepository.findByUser_UserId(userId);

@@ -1,8 +1,8 @@
-package toiletgo.user.dto;
+package toiletgo.activities.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import toiletgo.user.entity.Toilet;
+import toiletgo.activities.entity.Toilet;
 
 import java.math.BigDecimal;
 

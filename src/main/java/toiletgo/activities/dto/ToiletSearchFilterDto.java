@@ -1,4 +1,4 @@
-package toiletgo.user.dto;
+package toiletgo.activities.dto;
 
 import lombok.Getter;
 import lombok.Setter;

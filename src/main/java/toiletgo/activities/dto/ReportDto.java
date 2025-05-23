@@ -1,16 +1,10 @@
 package toiletgo.activities.dto;
 
-import toiletgo.activities.entity.*;
-import toiletgo.user.entity.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Data;
 import toiletgo.activities.entity.Report;
 import toiletgo.activities.entity.Review;
-import toiletgo.user.entity.Toilet;
+import toiletgo.activities.entity.Toilet;
 import toiletgo.user.entity.User;
 
 import java.time.LocalDateTime;

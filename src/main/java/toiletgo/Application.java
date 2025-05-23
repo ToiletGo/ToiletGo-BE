@@ -5,9 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import toiletgo.activities.entity.*;
-import toiletgo.user.entity.*;
 import toiletgo.user.entity.User;
 import toiletgo.user.repository.*;
 import toiletgo.activities.repository.*;
@@ -15,7 +13,6 @@ import toiletgo.activities.repository.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
 @SpringBootApplication
