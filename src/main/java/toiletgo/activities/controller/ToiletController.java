@@ -1,6 +1,6 @@
 package toiletgo.activities.controller;
 
-import toiletgo.activities.dto.ToiletDto;
+import toiletgo.user.dto.ToiletDto;
 import toiletgo.user.entity.Toilet;
 import toiletgo.user.repository.ToiletRepository;
 import org.springframework.beans.factory.annotation.Autowired;

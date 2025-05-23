@@ -21,7 +21,7 @@ public class MissionController {
     MissionRepository missionRepository;
 
     @GetMapping("/api/missions/{userId}")
-    public ResponseEntity<List<MissionListDto>> getMission(@PathVariable String userId) {
+    public ResponseEntity<List<MissionListDto>> getMissions(@PathVariable String userId) {
         List<Mission> missions = missionRepository.findRandomMissionsByUserId(userId);
         if (missions.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);

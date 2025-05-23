@@ -17,7 +17,7 @@ public class MissionList {
 
     @Id
     @Column(name = "mission_id")
-    private Long id;
+    private Long missionId;
 
     @OneToOne(mappedBy = "missionList")
     private Mission mission;
@@ -28,11 +28,8 @@ public class MissionList {
     @Column(name= "mission_name")
     private String mission_name;
 
-    @Column(name = "mission_type", nullable = false)
-    private Boolean missionType;
-
     @Column(name = "point", nullable = false)
-    private Boolean point;
+    private Integer point;
 
 }
 

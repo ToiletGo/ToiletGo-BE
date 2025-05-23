@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import toiletgo.activities.dto.ToiletDto;
 import toiletgo.activities.entity.Report;
+import toiletgo.user.dto.ToiletDto;
 // import toiletgo.activities.entity.Review;
 
 import java.math.BigDecimal;
@@ -94,18 +94,9 @@ public class Toilet {
     public ToiletDto toDto() {
         return ToiletDto.builder()
                 .toiletId(this.getToiletId())
-                .roadAddress(this.getRoadAddress())
-                .lotAddress(this.getLotAddress())
                 .latitude(this.getLatitude())
                 .longitude(this.getLongitude())
-                .buildingName(this.getBuildingName())
-                .telNo(this.getTelNo())
-                .toiletType(this.getToiletType())
-                .openTime(this.getOpenTime())
-                .toiletUsage(this.getToiletUsage())
                 .toiletStatus(this.getToiletStatus())
-                .facilities(this.getFacilities())
-                .signInfo(this.getSignInfo())
                 .note(this.getNote())
                 .rating(this.getRating())
                 .hasDiaperTable(this.getHasDiaperTable())

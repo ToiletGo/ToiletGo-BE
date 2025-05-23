@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import toiletgo.activities.dto.ReviewDto;
 import toiletgo.activities.entity.Review;
 import toiletgo.activities.repository.ReviewRepository;
+import toiletgo.user.dto.UserDto;
 import toiletgo.user.entity.Toilet;
 import toiletgo.user.entity.User;
 import toiletgo.user.repository.ToiletRepository;
@@ -17,7 +18,6 @@ import java.util.stream.Collectors;
 
 @RestController
 public class ReviewController {
-
 
     @Autowired
     ReviewRepository reviewRepository;
@@ -53,6 +53,24 @@ public class ReviewController {
                 .map(ReviewDto::toDto)
                 .collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(reviewDtos);
+    }
+
+    //admin
+    @DeleteMapping("/api/admin/delete/{reviewId}")
+    public ResponseEntity<String> deleteReport(@PathVariable Long reviewId) {
+        try {
+            Review review = reviewRepository.findById(reviewId).orElse(null);
+            if (review == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 유저가 존재하지 않습니다.");
+            }
+            reviewRepository.delete(review);
+
+            return ResponseEntity.status(HttpStatus.OK).body("삭제 완료 처리되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("미션 완료 처리 중 오류 발생: " + e.getMessage());
+        }
+
     }
 }
 
