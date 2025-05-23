@@ -1,6 +1,7 @@
 package toiletgo.activities.controller;
 
 import toiletgo.user.dto.ToiletDto;
+import toiletgo.user.dto.ToiletSearchFilterDto;
 import toiletgo.user.entity.Toilet;
 import toiletgo.user.repository.ToiletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,47 @@ import java.util.stream.Collectors;
 public class ToiletController {
     @Autowired
     ToiletRepository toiletRepository;
+    /*
+    @GetMapping("/api/toilets")
+    public ResponseEntity<List<ToiletDto>> getToilets(){
+        List<Toilet> toilets = toiletRepository.findAll();
+
+        if (!toilets.isEmpty()) {
+            List<ToiletDto> toiletDtos = toilets.stream()
+                    .map(ToiletDto::toDto)
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.status(HttpStatus.OK).body(toiletDtos);
+        }
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }*/
+    //화장실 조회(필터버전)
+    @PostMapping("/api/toilets/filter")
+    public ResponseEntity<List<ToiletDto>> getFilteredToiltets(@RequestBody ToiletSearchFilterDto requestDto){
+        List<Toilet> toilets = toiletRepository.findFilteredToilets(
+                requestDto.getMinLatitude(),
+                requestDto.getMaxLatitude(),
+                requestDto.getMinLongitude(),
+                requestDto.getMaxLongitude(),
+                requestDto.getHasDiaperTable(),
+                requestDto.getHasHandicapAccess(),
+                requestDto.getHasBidet(),
+                requestDto.getHasTissue()
+        );
+
+        if (toilets.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+
+        List<ToiletDto> toiletDtos = toilets.stream()
+                .map(ToiletDto::toDto)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.OK).body(toiletDtos);
+    }
+
+
     @GetMapping("/api/toilets")
     public ResponseEntity<List<ToiletDto>> getToilets(){
         List<Toilet> toilets = toiletRepository.findAll();
