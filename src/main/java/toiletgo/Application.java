@@ -42,6 +42,7 @@ public class Application implements CommandLineRunner {
 		this.reviewRepository = reviewRepository;
 	}
 
+	//
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
