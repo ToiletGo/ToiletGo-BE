@@ -29,25 +29,26 @@ public class GiftController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/api/gifts")
+    // 상점 조회
+    @GetMapping("/api/store/show")
     public ResponseEntity<List<GiftListDto>> getGifts(){
-        List<GiftList> gifts = giftListRepository.findAll();
+        List<GiftList> gifts = giftListRepository.findByIsAssignedFalse();
         if (gifts.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
 
-        List<GiftListDto> missionListDtoList = gifts.stream()
+        List<GiftListDto> giftListDtos = gifts.stream()
                 .map(giftList -> giftList.toDto())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.status(HttpStatus.OK).body(missionListDtoList);
+        return ResponseEntity.status(HttpStatus.OK).body(giftListDtos);
     }
 
-
-    @GetMapping("/api/gifts/{userid}")
-    public ResponseEntity<List<GiftDto>> getUserGifts(@PathVariable String userId){
+    // 특정 사용자 선물함 조회
+    @GetMapping("/api/gifts")
+    public ResponseEntity<List<GiftDto>> getUserGifts(@RequestBody UserDto userDto){
         try {
-            List<Gift> gifts = giftRepository.findByUser_UserId(userId);
+            List<Gift> gifts = giftRepository.findByUser_UserId(userDto.getUserId());
             if (gifts.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
             }
@@ -63,16 +64,16 @@ public class GiftController {
     }
 
     //선물 구입
-    @PatchMapping("/api/gifts/purchase/{userId}/{giftId}")
-    public ResponseEntity<String> buyGift(@PathVariable String userId, @PathVariable Long giftId){
+    @PatchMapping("/api/gifts/purchase")
+    public ResponseEntity<String> buyGift(@RequestBody GiftPurchaseDto giftPurchaseDto){
         try{
-            GiftList gift = giftListRepository.findById(giftId).orElse(null);
+            GiftList gift = giftListRepository.findById(giftPurchaseDto.getGiftId()).orElse(null);
             if(gift == null){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 선물이 존재하지 않습니다.");
             }
             gift.setIsAssigned(true);
 
-            User user = userRepository.findById(userId).orElse(null);
+            User user = userRepository.findById(giftPurchaseDto.getUserId()).orElse(null);
             Gift myGift = new Gift(gift,user,false,false);
             giftRepository.save(myGift);
 
@@ -85,20 +86,20 @@ public class GiftController {
 
     //선물 기한만료
 
-    @PatchMapping("/api/gifts/{giftId}/use")
-    public ResponseEntity<String> expiredGift(@PathVariable Long no){
+    @PatchMapping("/api/gifts/expired")
+    public ResponseEntity<String> expiredGift(@RequestBody GiftDto giftDto){
         try{
-            Gift gift = giftRepository.findById(no).orElse(null);
+            Gift gift = giftRepository.findById(giftDto.getGiftNo()).orElse(null);
             if(gift == null){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 미션이 존재하지 않습니다.");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 선물이 존재하지 않습니다.");
             }
-            gift.setIsUsed(true);
+            gift.setIsExpired(true);
             giftRepository.save(gift);
 
-            return ResponseEntity.status(HttpStatus.OK).body("사용완료 처리되었습니다.");
+            return ResponseEntity.status(HttpStatus.OK).body("기한이 만료되었습니다.");
         } catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("미션 완료 처리 중 오류 발생: " + e.getMessage());
+                    .body("선물 관리 중 오류 발생: " + e.getMessage());
         }
 
     }

@@ -29,13 +29,13 @@ public class Mission {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "mission_progress", length = 1024)
+    @Column(name = "mission_progress", length = 1024, nullable = true)
     private Integer progress;
 
-    @Column(name = "is_completed")
+    @Column(name = "is_completed", nullable = true)
     private Boolean isCompleted;
 
-    @Column(name = "completed_at", nullable = false)
+    @Column(name = "completed_at", nullable = true)
     private LocalDateTime completedAt;
 
     public Mission missionConstructor(MissionList missionList, User user, Integer progress, Boolean isCompleted, LocalDateTime completedAt) {

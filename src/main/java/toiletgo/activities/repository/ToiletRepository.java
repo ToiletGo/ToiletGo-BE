@@ -1,10 +1,10 @@
-package toiletgo.user.repository;
+package toiletgo.activities.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import toiletgo.user.entity.Toilet;
+import toiletgo.activities.entity.Toilet;
 
 import java.util.List;
 

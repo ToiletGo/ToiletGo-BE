@@ -11,9 +11,9 @@ import toiletgo.activities.entity.Report;
 import toiletgo.activities.entity.Review;
 import toiletgo.activities.repository.ReportRepository;
 import toiletgo.activities.repository.ReviewRepository;
-import toiletgo.user.entity.Toilet;
+import toiletgo.activities.entity.Toilet;
 import toiletgo.user.entity.User;
-import toiletgo.user.repository.ToiletRepository;
+import toiletgo.activities.repository.ToiletRepository;
 import toiletgo.user.repository.UserRepository;
 
 import java.util.List;
@@ -61,10 +61,10 @@ public class ReportController {
         return ResponseEntity.status(HttpStatus.OK).body(reportDtoList);
     }
 
-    @DeleteMapping("/api/admin/delete/review/{reportId}")
-    public ResponseEntity<String> deleteReport(@PathVariable Long reportId) {
+    @DeleteMapping("/api/admin/report/delete")
+    public ResponseEntity<String> deleteReport(@RequestBody ReportDto reportDto) {
         try {
-            Report report = reportRepository.findById(reportId).orElse(null);
+            Report report = reportRepository.findById(reportDto.getReportId()).orElse(null);
             if (report == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 신고내역이 존재하지 않습니다.");
             }

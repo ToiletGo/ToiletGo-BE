@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import toiletgo.user.dto.ToiletDto;
-import toiletgo.user.dto.ToiletSearchFilterDto;
-import toiletgo.user.entity.Toilet;
-import toiletgo.user.repository.ToiletRepository;
+import toiletgo.activities.dto.ReportDto;
+import toiletgo.activities.dto.ToiletDto;
+import toiletgo.activities.dto.ToiletSearchFilterDto;
+import toiletgo.activities.entity.Toilet;
+import toiletgo.activities.repository.ToiletRepository;
+import toiletgo.user.dto.UserDto;
+import toiletgo.user.entity.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,11 +75,10 @@ public class ToiletController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
-    @GetMapping("/api/toilet/{toiletId}")
-    public ResponseEntity<ToiletDto> getToilet(@PathVariable Long toiletId){
-        Toilet toilet = toiletRepository.findById(toiletId).orElse(null);
+    @GetMapping("/api/toilet/get")
+    public ResponseEntity<ToiletDto> getToilet(@RequestBody ToiletDto toiletDto){
+        Toilet toilet = toiletRepository.findById(toiletDto.getToiletId()).orElse(null);
         if(toilet != null){
-            ToiletDto toiletDto = toilet.toDto();
             return ResponseEntity.status(HttpStatus.OK).body(toiletDto);
         } else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -91,6 +93,23 @@ public class ToiletController {
             return ResponseEntity.status(HttpStatus.CREATED).body("화장실이 성공적으로 등록되었습니다.");
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("등록 중 오류가 발생했습니다.");
+        }
+    }
+
+    //admin
+    @DeleteMapping("/api/toilet/delete")
+    public ResponseEntity<String> deleteToilet(@RequestBody ReportDto reportDto) {
+        try {
+            Toilet toilet = toiletRepository.findById(reportDto.getToiletId()).orElse(null);
+            if (toilet == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 유저가 존재하지 않습니다.");
+            }
+            toiletRepository.delete(toilet);
+
+            return ResponseEntity.status(HttpStatus.OK).body("삭제 완료 처리되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("삭제 처리 중 오류 발생: " + e.getMessage());
         }
     }
 }

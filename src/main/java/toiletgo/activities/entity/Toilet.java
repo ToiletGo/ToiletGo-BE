@@ -1,4 +1,4 @@
-package toiletgo.user.entity;
+package toiletgo.activities.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -6,8 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import toiletgo.activities.entity.Report;
-import toiletgo.user.dto.ToiletDto;
+import toiletgo.activities.dto.ToiletDto;
 // import toiletgo.activities.entity.Review;
 
 import java.math.BigDecimal;

@@ -1,10 +1,8 @@
 package toiletgo.activities.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import toiletgo.activities.dto.ReportDto;
-import toiletgo.user.entity.Toilet;
 import toiletgo.user.entity.User;
 
 import java.time.LocalDateTime;
@@ -70,5 +68,6 @@ public class Report {
                 .reportAt(this.reportAt)
                 .build();
     }
+
 }
 
