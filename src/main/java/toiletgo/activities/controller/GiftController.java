@@ -42,6 +42,8 @@ public class GiftController {
 
         return ResponseEntity.status(HttpStatus.OK).body(missionListDtoList);
     }
+
+
     @GetMapping("/api/gifts/{userid}")
     public ResponseEntity<List<GiftDto>> getUserGifts(@PathVariable String userId){
         try {
@@ -84,7 +86,7 @@ public class GiftController {
     //선물 기한만료
 
     @PatchMapping("/api/gifts/{giftId}/use")
-    public ResponseEntity<String> (@PathVariable Long no){
+    public ResponseEntity<String> expiredGift(@PathVariable Long no){
         try{
             Gift gift = giftRepository.findById(no).orElse(null);
             if(gift == null){

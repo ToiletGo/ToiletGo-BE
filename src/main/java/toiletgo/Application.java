@@ -1,5 +1,6 @@
 package toiletgo;
 
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 
+@AllArgsConstructor
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
@@ -30,20 +32,6 @@ public class Application implements CommandLineRunner {
 	private final MissionListRepository missionListRepository;
 	private final ReportRepository reportRepository;
 	private final ReviewRepository reviewRepository;
-
-	public Application(UserRepository userRepository, ToiletRepository toiletRepository,
-					   GiftRepository giftRepository, GiftListRepository giftListRepository,
-					   MissionRepository missionRepository, MissionListRepository missionListRepository,
-					   ReportRepository reportRepository, ReviewRepository reviewRepository) {
-		this.userRepository = userRepository;
-		this.toiletRepository = toiletRepository;
-		this.giftRepository = giftRepository;
-		this.giftListRepository = giftListRepository;
-		this.missionRepository = missionRepository;
-		this.missionListRepository = missionListRepository;
-		this.reportRepository = reportRepository;
-		this.reviewRepository = reviewRepository;
-	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
