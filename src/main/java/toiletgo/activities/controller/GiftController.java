@@ -84,20 +84,20 @@ public class GiftController {
 
     //선물 기한만료
 
-    @PatchMapping("/api/gifts/{giftId}/use")
-    public ResponseEntity<String> (@PathVariable Long no){
+    @PatchMapping("/api/gift/expired")
+    public ResponseEntity<String> expiredGift(@RequestBody GiftDto giftDto){
         try{
-            Gift gift = giftRepository.findById(no).orElse(null);
+            Gift gift = giftRepository.findById(giftDto.getGiftNo()).orElse(null);
             if(gift == null){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 미션이 존재하지 않습니다.");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 선물이 존재하지 않습니다.");
             }
-            gift.setIsUsed(true);
+            gift.setIsExpired(true);
             giftRepository.save(gift);
 
-            return ResponseEntity.status(HttpStatus.OK).body("사용완료 처리되었습니다.");
+            return ResponseEntity.status(HttpStatus.OK).body("기한이 만료되었습니다.");
         } catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("미션 완료 처리 중 오류 발생: " + e.getMessage());
+                    .body("선물 관리 중 오류 발생: " + e.getMessage());
         }
 
     }
