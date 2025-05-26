@@ -1,10 +1,7 @@
 package toiletgo.activities.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.cglib.core.Local;
-import toiletgo.activities.dto.ReviewDto;
 import toiletgo.user.entity.*;
 
 import java.time.LocalDateTime;

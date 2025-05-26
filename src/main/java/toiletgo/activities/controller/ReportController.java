@@ -4,16 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import toiletgo.activities.dto.MissionListDto;
 import toiletgo.activities.dto.ReportDto;
-import toiletgo.activities.entity.Mission;
 import toiletgo.activities.entity.Report;
 import toiletgo.activities.entity.Review;
 import toiletgo.activities.repository.ReportRepository;
 import toiletgo.activities.repository.ReviewRepository;
-import toiletgo.user.entity.Toilet;
+import toiletgo.activities.entity.Toilet;
 import toiletgo.user.entity.User;
-import toiletgo.user.repository.ToiletRepository;
+import toiletgo.activities.repository.ToiletRepository;
 import toiletgo.user.repository.UserRepository;
 
 import java.util.List;

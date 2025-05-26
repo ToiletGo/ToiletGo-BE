@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import toiletgo.activities.dto.ReviewDto;
 import toiletgo.activities.entity.Review;
 import toiletgo.activities.repository.ReviewRepository;
-import toiletgo.user.dto.UserDto;
-import toiletgo.user.entity.Toilet;
+import toiletgo.activities.entity.Toilet;
 import toiletgo.user.entity.User;
-import toiletgo.user.repository.ToiletRepository;
+import toiletgo.activities.repository.ToiletRepository;
 import toiletgo.user.repository.UserRepository;
 
 import java.util.List;
