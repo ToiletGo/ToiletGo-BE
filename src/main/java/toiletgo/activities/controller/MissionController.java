@@ -19,7 +19,7 @@ public class MissionController {
     @Autowired
     MissionRepository missionRepository;
 
-    @GetMapping("/api/missions/get")
+    @PostMapping("/api/missions/get")
     public ResponseEntity<List<MissionListDto>> getMissions(@RequestBody UserDto userDto) {
         List<Mission> missions = missionRepository.findRandomMissionsByUserId(userDto.getUserId());
         if (missions.isEmpty()) {

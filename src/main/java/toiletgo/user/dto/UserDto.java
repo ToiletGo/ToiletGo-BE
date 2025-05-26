@@ -4,8 +4,10 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import toiletgo.activities.entity.Gift;
 import toiletgo.activities.entity.Mission;
 import toiletgo.activities.entity.Report;
@@ -16,8 +18,9 @@ import java.util.List;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
-
     private String userId;
     private String username;
     private String password;

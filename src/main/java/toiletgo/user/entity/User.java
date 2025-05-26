@@ -66,11 +66,11 @@ public class User {
 
     public UserDto toDto() {
         return UserDto.builder()
-                .userId(this.getUserId())
-                .username(this.getUsername())
-                .userPoint(this.getUserPoint())
-                .userTrust(this.getUserTrust())
-                .userProfileImg(this.getUserProfileImg())
+                .userId(this.userId)
+                .username(this.username)
+                .userPoint(this.userPoint)
+                .userTrust(this.userTrust)
+                .userProfileImg(this.userProfileImg)
                 .build();
     }
 

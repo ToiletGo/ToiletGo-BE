@@ -1,7 +1,9 @@
 package toiletgo.activities.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import toiletgo.activities.entity.*;
 import toiletgo.user.entity.*;
 
@@ -9,6 +11,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReviewDto {
 
     private Long reviewId;

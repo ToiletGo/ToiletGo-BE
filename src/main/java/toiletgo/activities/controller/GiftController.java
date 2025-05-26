@@ -47,7 +47,7 @@ public class GiftController {
     }
 
     // 특정 사용자 선물함 조회
-    @GetMapping("/api/gifts")
+    @PostMapping("/api/gifts")
     public ResponseEntity<List<GiftDto>> getUserGifts(@RequestBody UserDto userDto){
         try {
             List<Gift> gifts = giftRepository.findByUser_UserId(userDto.getUserId());

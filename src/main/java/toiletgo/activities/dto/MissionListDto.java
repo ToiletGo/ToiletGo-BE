@@ -1,5 +1,7 @@
 package toiletgo.activities.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import toiletgo.activities.entity.MissionList;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +13,8 @@ import toiletgo.user.entity.*;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MissionListDto {
     private Long missionId;           // 미션 식별자
     private String missionName;       // 미션 이름
