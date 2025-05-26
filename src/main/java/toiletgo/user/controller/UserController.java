@@ -18,6 +18,14 @@ public class UserController {
     @GetMapping("/api/profile")
     public ResponseEntity<UserDto> showProfile(@RequestBody UserDto userDto){
         User user = userRepository.findById(userDto.getUserId()).orElse(null);
+
+        userDto = UserDto.builder()
+                .userId(userDto.getUserId())
+                .username(user.getUsername())
+                .userPoint(user.getUserPoint())
+                .userTrust(user.getUserTrust())
+                .build();
+
         if(user != null){
             return ResponseEntity.status(HttpStatus.OK).body(userDto);
         } else{
@@ -33,7 +41,7 @@ public class UserController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 유저가 존재하지 않습니다.");
             }
             user.setUsername(userDto.getUsername());
-            user.setPassword(userDto.getPassword());
+            // user.setPassword(userDto.getPassword());
             user.setUserProfileImg(userDto.getUserProfileImg());
 
             return ResponseEntity.status(HttpStatus.OK).body("미션 완료 처리되었습니다.");

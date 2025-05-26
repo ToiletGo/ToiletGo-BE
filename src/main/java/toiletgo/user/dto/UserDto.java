@@ -20,7 +20,7 @@ public class UserDto {
 
     private String userId;
     private String username;
-    private String password;
+    // private String password;
     private Integer userPoint;
     private Integer userTrust;
     private String userProfileImg;
@@ -29,7 +29,7 @@ public class UserDto {
         return User.builder()
                 .userId(this.userId)
                 .username(this.username)
-                .password(this.password)
+                // .password(this.password)
                 .userPoint(this.userPoint)
                 .userTrust(this.userTrust)
                 .userProfileImg(this.userProfileImg)

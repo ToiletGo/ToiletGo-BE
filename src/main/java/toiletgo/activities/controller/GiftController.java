@@ -6,12 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import toiletgo.activities.dto.GiftDto;
 import toiletgo.activities.dto.GiftListDto;
+import toiletgo.activities.dto.GiftPurchaseDto;
 import toiletgo.activities.dto.MissionListDto;
 import toiletgo.activities.entity.Gift;
 import toiletgo.activities.entity.GiftList;
 import toiletgo.activities.entity.Mission;
 import toiletgo.activities.repository.GiftListRepository;
 import toiletgo.activities.repository.GiftRepository;
+import toiletgo.user.dto.UserDto;
 import toiletgo.user.entity.User;
 import toiletgo.user.repository.UserRepository;
 

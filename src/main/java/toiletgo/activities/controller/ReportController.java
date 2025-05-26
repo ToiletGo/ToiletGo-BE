@@ -31,6 +31,8 @@ public class ReportController {
     ToiletRepository toiletRepository;
     @Autowired
     ReviewRepository reviewRepository;
+
+
     @PostMapping("/api/report")
     public ResponseEntity<String> reportToilet(@RequestBody ReportDto reportDto){
         try{

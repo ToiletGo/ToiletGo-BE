@@ -54,8 +54,8 @@ public class Report {
     @Column(name="is_processed")
     private boolean isProcessed;
 
-    @Column(nullable = false, name="report_at")
-    private LocalDateTime reportAt;
+    @Column(nullable = true, name="report_at")
+        private LocalDateTime reportAt;
 
     public ReportDto toDto() {
         return ReportDto.builder()
