@@ -59,10 +59,10 @@ public class ReportController {
         return ResponseEntity.status(HttpStatus.OK).body(reportDtoList);
     }
 
-    @DeleteMapping("/api/admin/delete/{reportId}")
-    public ResponseEntity<String> deleteReport(@PathVariable Long reportId) {
+    @DeleteMapping("/api/admin/report/delete")
+    public ResponseEntity<String> deleteReport(@RequestBody ReportDto reportDto) {
         try {
-            Report report = reportRepository.findById(reportId).orElse(null);
+            Report report = reportRepository.findById(reportDto.getReportId()).orElse(null);
             if (report == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 신고내역이 존재하지 않습니다.");
             }

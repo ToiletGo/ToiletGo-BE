@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 public class ReportDto {
 
+    private Long reportId;
     private String userId;
     private Long toiletId;       // Toilet → toilet.getUserId()
     private Long reviewId;       // Review → review.getReviewId()

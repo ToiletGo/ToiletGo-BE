@@ -72,11 +72,10 @@ public class ToiletController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
-    @GetMapping("/api/toilet/{toiletId}")
-    public ResponseEntity<ToiletDto> getToilet(@PathVariable Long toiletId){
-        Toilet toilet = toiletRepository.findById(toiletId).orElse(null);
+    @GetMapping("/api/toilet/get")
+    public ResponseEntity<ToiletDto> getToilet(@RequestBody ToiletDto toiletDto){
+        Toilet toilet = toiletRepository.findById(toiletDto.getToiletId()).orElse(null);
         if(toilet != null){
-            ToiletDto toiletDto = toilet.toDto();
             return ResponseEntity.status(HttpStatus.OK).body(toiletDto);
         } else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);

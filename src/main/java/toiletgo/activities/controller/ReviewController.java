@@ -24,7 +24,8 @@ public class ReviewController {
     UserRepository userRepository;
     @Autowired
     ToiletRepository toiletRepository;
-    @PostMapping("/api/reviews/{toiletId}")
+    // 리뷰 남기기
+    @PostMapping("/api/reviews/create")
     public ResponseEntity<String> createReview(@RequestBody ReviewDto reviewDto){
         try{
             User user = userRepository.findById(reviewDto.getUserId()).orElse(null);
@@ -42,9 +43,9 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/api/toilets/{toiltId}/reviews")
-    public ResponseEntity<List<ReviewDto>> getReview(@PathVariable Long toiletId) {
-        List<Review> reviews = reviewRepository.findByToilet_ToiletId(toiletId);
+    @GetMapping("/api/reviews/get")
+    public ResponseEntity<List<ReviewDto>> getReview(@RequestBody ReviewDto reviewDto) {
+        List<Review> reviews = reviewRepository.findByToilet_ToiletId(reviewDto.getToiletId());
         if (reviews.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
@@ -55,10 +56,10 @@ public class ReviewController {
     }
 
     //admin
-    @DeleteMapping("/api/admin/delete/{reviewId}")
-    public ResponseEntity<String> deleteReport(@PathVariable Long reviewId) {
+    @DeleteMapping("/api/admin/review/delete")
+    public ResponseEntity<String> deleteReport(@RequestBody ReviewDto reviewDto) {
         try {
-            Review review = reviewRepository.findById(reviewId).orElse(null);
+            Review review = reviewRepository.findById(reviewDto.getReviewId()).orElse(null);
             if (review == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 유저가 존재하지 않습니다.");
             }
