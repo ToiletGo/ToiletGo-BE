@@ -34,7 +34,7 @@ public class ToiletController {
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }*/
-    //화장실 조회(필터버전)
+    //화장실 조회(필터버전) 검토 필요
     @PostMapping("/api/toilets/filter")
     public ResponseEntity<List<ToiletDto>> getFilteredToiltets(@RequestBody ToiletSearchFilterDto requestDto){
         List<Toilet> toilets = toiletRepository.findFilteredToilets(
@@ -75,7 +75,7 @@ public class ToiletController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
-    @GetMapping("/api/toilet/get")
+    @PostMapping("/api/toilet/get")
     public ResponseEntity<ToiletDto> getToilet(@RequestBody ToiletDto toiletDto){
         Toilet toilet = toiletRepository.findById(toiletDto.getToiletId()).orElse(null);
         if(toilet != null){
@@ -96,8 +96,8 @@ public class ToiletController {
         }
     }
 
-    //admin
-    @DeleteMapping("/api/toilet/delete")
+    //admin 오류 : cascade 오류
+    @PostMapping("/api/admin/toilet/delete")
     public ResponseEntity<String> deleteToilet(@RequestBody ReportDto reportDto) {
         try {
             Toilet toilet = toiletRepository.findById(reportDto.getToiletId()).orElse(null);

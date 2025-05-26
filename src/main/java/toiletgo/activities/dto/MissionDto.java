@@ -1,5 +1,7 @@
 package toiletgo.activities.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import toiletgo.activities.entity.*;
 import toiletgo.user.entity.*;
 import lombok.Builder;
@@ -9,6 +11,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MissionDto {
     private Long missionNo;
     private String userId;

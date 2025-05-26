@@ -15,7 +15,7 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/api/profile")
+    @PostMapping("/api/profile")
     public ResponseEntity<UserDto> showProfile(@RequestBody UserDto userDto){
         User user = userRepository.findById(userDto.getUserId()).orElse(null);
 
@@ -27,7 +27,7 @@ public class UserController {
                 .build();
 
         if(user != null){
-            return ResponseEntity.status(HttpStatus.OK).body(userDto);
+            return ResponseEntity.status(HttpStatus.OK).body(user.toDto());
         } else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }

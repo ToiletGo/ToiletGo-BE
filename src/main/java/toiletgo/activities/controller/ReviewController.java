@@ -43,7 +43,7 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/api/reviews/get")
+    @PostMapping("/api/reviews/get")
     public ResponseEntity<List<ReviewDto>> getReview(@RequestBody ReviewDto reviewDto) {
         List<Review> reviews = reviewRepository.findByToilet_ToiletId(reviewDto.getToiletId());
         if (reviews.isEmpty()) {
@@ -56,7 +56,7 @@ public class ReviewController {
     }
 
     //admin
-    @DeleteMapping("/api/admin/review/delete")
+    @PostMapping("/api/admin/review/delete")
     public ResponseEntity<String> deleteReport(@RequestBody ReviewDto reviewDto) {
         try {
             Review review = reviewRepository.findById(reviewDto.getReviewId()).orElse(null);

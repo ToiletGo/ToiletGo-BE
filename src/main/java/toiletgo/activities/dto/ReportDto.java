@@ -1,7 +1,9 @@
 package toiletgo.activities.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import toiletgo.activities.entity.Report;
 import toiletgo.activities.entity.Review;
 import toiletgo.activities.entity.Toilet;
@@ -11,6 +13,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReportDto {
 
     private Long reportId;

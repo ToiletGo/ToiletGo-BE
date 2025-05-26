@@ -31,16 +31,25 @@ public class ReportController {
     ToiletRepository toiletRepository;
     @Autowired
     ReviewRepository reviewRepository;
-
-
-    @PostMapping("/api/report")
+    //오류
+    @PostMapping("/api/report/create")
     public ResponseEntity<String> reportToilet(@RequestBody ReportDto reportDto){
         try{
-            User user = userRepository.findByUserId(reportDto.getUserId()).orElse(null);
-            Toilet toilet = toiletRepository.findById(reportDto.getToiletId()).orElse(null);
-            Review review = reviewRepository.findById(reportDto.getReviewId()).orElse(null);
-            Report report = reportDto.toEntity(user,toilet,review);
-            Report saved = reportRepository.save(report);
+            User user = userRepository.findById(reportDto.getUserId()).orElse(null);
+            Toilet toilet;
+            Review review;
+            Report report;
+            if(reportDto.getToiletId()!= null) {
+                toilet = toiletRepository.findById(reportDto.getToiletId()).orElse(null);
+                review = null;
+                report = reportDto.toEntity(user,toilet,review);
+                Report saved = reportRepository.save(report);
+            } else if(reportDto.getReviewId()!= null){
+                toilet = null;
+                review = reviewRepository.findById(reportDto.getReviewId()).orElse(null);
+                report = reportDto.toEntity(user,toilet,review);
+                Report saved = reportRepository.save(report);
+            }
 
             return ResponseEntity.status(HttpStatus.CREATED).body("신고가 성공적으로 등록되었습니다.");
         } catch (Exception e){

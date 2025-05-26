@@ -47,6 +47,8 @@ public class Application implements CommandLineRunner {
 
 		MissionList missionList1 = new MissionList("화장실 3개에 리뷰 남기기", "리뷰 작성-1", 10);
 		MissionList missionList2 = new MissionList("화장실 10개에 리뷰 남기기", "리뷰 작성-2", 10);
+		MissionList missionList3 = new MissionList("화장실 8개에 리뷰 남기기", "리뷰 작성-3", 10);
+		MissionList missionList5 = new MissionList("화장실 9개에 리뷰 남기기", "리뷰 작성-4", 10);
 		Mission mission1 = new Mission().missionConstructor(missionList2, user1, 8, false, LocalDateTime.now());
 		Mission mission2 = new Mission().missionConstructor(missionList1, user2, 6, false, LocalDateTime.now());
 
