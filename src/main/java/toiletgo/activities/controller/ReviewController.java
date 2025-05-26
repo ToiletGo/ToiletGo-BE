@@ -56,7 +56,7 @@ public class ReviewController {
     }
 
     //admin
-    @DeleteMapping("/api/admin/delete/{reviewId}")
+    @DeleteMapping("/api/admin/delete/review/{reviewId}")
     public ResponseEntity<String> deleteReport(@PathVariable Long reviewId) {
         try {
             Review review = reviewRepository.findById(reviewId).orElse(null);

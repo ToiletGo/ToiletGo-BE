@@ -61,7 +61,7 @@ public class ReportController {
         return ResponseEntity.status(HttpStatus.OK).body(reportDtoList);
     }
 
-    @DeleteMapping("/api/admin/delete/{reportId}")
+    @DeleteMapping("/api/admin/delete/review/{reportId}")
     public ResponseEntity<String> deleteReport(@PathVariable Long reportId) {
         try {
             Report report = reportRepository.findById(reportId).orElse(null);

@@ -6,15 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import toiletgo.user.entity.User;
 import toiletgo.user.dto.UserDto;
 import toiletgo.user.repository.UserRepository;
 
 import java.io.IOException;
 import java.net.SocketException;
+import java.util.Optional;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -54,9 +53,12 @@ public class RegisterController {
             user.setUserProfileImg(null);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-            User savedUser = userRepository.save(user);
+            if(userRepository.existsById(user.getUserId())){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("중복 id 입니다.");
+            }
 
-            return ResponseEntity.ok(savedUser);
+            userRepository.save(user);
+            return ResponseEntity.ok("회원 가입이 완료되었습니다.");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,8 +70,43 @@ public class RegisterController {
         }
     }
 
+    @GetMapping("/login/register/verify-user")
+    public ResponseEntity<?> verifyUserId(@RequestParam String userId) {
+        try{
+
+            Optional<User> user = userRepository.findById(userId);
+            if(user.isPresent()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("중복 id 입니다.");
+            } else {
+                return ResponseEntity.ok("사용 가능한 id 입니다.");
+            }
+
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+
 
 }
 
+// userRepository.existsById(userId)
 
+/*
+@GetMapping("/login/register/verify-user")
+    public ResponseEntity<?> verifyUserId(@RequestParam String userId) {
+        try{
+            ResponseEntity response = null;
+            Optional<User> user = userRepository.findById(userId);
+            if(user.isPresent()) {
+                return response.ok("중복 id입니다.");
+            } else {
+                return response.status(HttpStatus.NOT_FOUND).build();
+            }
+
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+ */
 
