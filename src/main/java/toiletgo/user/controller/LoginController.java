@@ -8,7 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import toiletgo.user.auth.AccountCredentials;
+import toiletgo.user.auth.UserCredentials;
 import toiletgo.user.service.JwtService;
 
 @RestController
@@ -22,7 +22,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> getToken(@RequestBody AccountCredentials credentials) {
+    public ResponseEntity<?> getToken(@RequestBody UserCredentials credentials) {
         UsernamePasswordAuthenticationToken creds = new UsernamePasswordAuthenticationToken(credentials.userid(),credentials.password());
         Authentication auth = authenticationManager.authenticate(creds);
 

@@ -68,5 +68,6 @@ public class Report {
                 .reportAt(this.reportAt)
                 .build();
     }
+
 }
 
