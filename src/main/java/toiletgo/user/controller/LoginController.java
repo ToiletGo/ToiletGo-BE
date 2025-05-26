@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import toiletgo.user.auth.UserCredentials;
 import toiletgo.user.service.JwtService;
 
+/**
+ * <h3>Login Controller</h3>
+ *
+ * <li><b> /login :</b> user id, pw를 받아서 로그인 요청을 하고 header에 jwt 반환 </li>
+ */
+
 @RestController
 public class LoginController {
     private final JwtService jwtService;
@@ -35,5 +41,7 @@ public class LoginController {
                 .build();
 
     }
+
+
 }
 

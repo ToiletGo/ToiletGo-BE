@@ -18,6 +18,14 @@ public class UserController {
     @PostMapping("/api/profile")
     public ResponseEntity<UserDto> showProfile(@RequestBody UserDto userDto){
         User user = userRepository.findById(userDto.getUserId()).orElse(null);
+
+        userDto = UserDto.builder()
+                .userId(userDto.getUserId())
+                .username(user.getUsername())
+                .userPoint(user.getUserPoint())
+                .userTrust(user.getUserTrust())
+                .build();
+
         if(user != null){
             return ResponseEntity.status(HttpStatus.OK).body(user.toDto());
         } else{
@@ -33,7 +41,7 @@ public class UserController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 유저가 존재하지 않습니다.");
             }
             user.setUsername(userDto.getUsername());
-            user.setPassword(userDto.getPassword());
+            // user.setPassword(userDto.getPassword());
             user.setUserProfileImg(userDto.getUserProfileImg());
 
             return ResponseEntity.status(HttpStatus.OK).body("미션 완료 처리되었습니다.");
@@ -45,7 +53,7 @@ public class UserController {
     }
 
     //admin
-    @DeleteMapping("/api/admin/delete")
+    @DeleteMapping("/api/admin/delete/user")
     public ResponseEntity<String> deleteUser(@RequestBody ReportDto reportDto) {
         try {
             User user = userRepository.findById(reportDto.getUserId()).orElse(null);
