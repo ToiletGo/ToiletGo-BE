@@ -87,11 +87,10 @@ public class GiftController {
 
     /**
      * <h3>PATCH /api/gifts/purchase </h3>
-     * <p><b>본인 id</b>선물을 구입 </p>
+     * <p>선물 구입 </p>
      * @param // request
      * @return <b>ResponseEntity&lt;List&lt;GiftDto&gt;&gt;</b>
      */
-
     @PatchMapping("/api/gifts/purchase")
     public ResponseEntity<String> buyGift(@RequestBody GiftPurchaseDto giftPurchaseDto){
         try{
