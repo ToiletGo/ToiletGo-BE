@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +22,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     public AuthenticationFilter(JwtService jwtService) {
         this.jwtService = jwtService;
+
     }
 
     @Override
@@ -30,8 +32,20 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         String jws = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if(jws != null) {
+
+            /**
+             * Prefix 때문에 substring(7)로 변경했습니다
+             */
+            if (jwtService.isBlacklisted(jws.substring(7))) {
+                System.out.println("JWT Blacklisted");
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("ERROR : this token is expired.");
+                return;
+            }
+
             // token 검증 및 사용자 가져오기
             String user = jwtService.getAuthUser(request);
+
             // 인증하기
             Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
 

@@ -45,13 +45,15 @@ public class RegisterController {
      */
 
 
-    @PostMapping("/login/register")
+    @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
         try {
             user.setUserPoint(0);
             user.setUserTrust(8);
             user.setUserProfileImg(null);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+
 
             if(userRepository.existsById(user.getUserId())){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("중복 id 입니다.");
@@ -70,7 +72,7 @@ public class RegisterController {
         }
     }
 
-    @GetMapping("/login/register/verify-user")
+    @GetMapping("/register/verify-user")
     public ResponseEntity<?> verifyUserId(@RequestParam String userId) {
         try{
 

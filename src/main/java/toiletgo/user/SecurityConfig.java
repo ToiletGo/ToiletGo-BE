@@ -1,5 +1,6 @@
 package toiletgo.user;
 
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,6 +18,7 @@ import toiletgo.user.auth.AuthEntryPoint;
 import toiletgo.user.auth.AuthenticationFilter;
 import toiletgo.user.service.UserDetailsServiceImpl;
 
+@AllArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -24,11 +26,6 @@ public class SecurityConfig {
     private final AuthenticationFilter authenticationFilter;
     private final AuthEntryPoint exceptionHandler;
 
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService, AuthenticationFilter authenticationFilter, AuthEntryPoint exceptionHandler) {
-        this.userDetailsService = userDetailsService;
-        this.authenticationFilter = authenticationFilter;
-        this.exceptionHandler = exceptionHandler;
-    }
 
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
@@ -62,8 +59,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
                                 .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/login/register").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/login/register/verify-user").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/register").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/register/verify-user").permitAll()
                                 .requestMatchers(
                                         "/swagger-ui.html",
                                         "/swagger-ui/**",
@@ -75,7 +72,8 @@ public class SecurityConfig {
                                 .anyRequest().authenticated())
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling((exceptionHandling) -> exceptionHandling
-                        .authenticationEntryPoint(exceptionHandler));
+                        .authenticationEntryPoint(exceptionHandler))
+                .logout(logout -> logout.logoutUrl("/spring-security-logout"));;
 
         return http.build();
     }
