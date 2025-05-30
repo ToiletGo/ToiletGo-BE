@@ -1,5 +1,7 @@
 package toiletgo.activities.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +18,13 @@ import toiletgo.activities.repository.GiftRepository;
 import toiletgo.user.dto.UserDto;
 import toiletgo.user.entity.User;
 import toiletgo.user.repository.UserRepository;
+import toiletgo.user.service.JwtService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+@AllArgsConstructor
 @RestController
 public class GiftController {
 
@@ -31,7 +36,13 @@ public class GiftController {
     @Autowired
     UserRepository userRepository;
 
-    // 상점 조회
+    JwtService jwtService;
+
+    /**
+     * <h3>GET /api/store/show </h3>
+     * <p><b>상점</b>의 선물을 모두 조회 </p>
+     * @return <b>ResponseEntity&lt;List&lt;GiftDto&gt;&gt;</b>
+     */
     @GetMapping("/api/store/show")
     public ResponseEntity<List<GiftListDto>> getGifts(){
         List<GiftList> gifts = giftListRepository.findByIsAssignedFalse();
@@ -46,11 +57,18 @@ public class GiftController {
         return ResponseEntity.status(HttpStatus.OK).body(giftListDtos);
     }
 
-    // 특정 사용자 선물함 조회
-    @PostMapping("/api/gifts")
-    public ResponseEntity<List<GiftDto>> getUserGifts(@RequestBody UserDto userDto){
+    /**
+     * <h3>GET /api/gifts </h3>
+     * <p><b>본인 id</b>의 선물을 모두 조회 </p>
+     * @param request
+     * @return <b>ResponseEntity&lt;List&lt;GiftDto&gt;&gt;</b>
+     */
+    @GetMapping("/api/gifts")
+    public ResponseEntity<List<GiftDto>> getUserGifts(HttpServletRequest request){
         try {
-            List<Gift> gifts = giftRepository.findByUser_UserId(userDto.getUserId());
+            String userId = jwtService.getAuthUser(request);
+
+            List<Gift> gifts = giftRepository.findByUser_UserId(userId);
             if (gifts.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
             }
@@ -65,7 +83,15 @@ public class GiftController {
         }
     }
 
-    //선물 구입
+
+
+    /**
+     * <h3>PATCH /api/gifts/purchase </h3>
+     * <p><b>본인 id</b>선물을 구입 </p>
+     * @param // request
+     * @return <b>ResponseEntity&lt;List&lt;GiftDto&gt;&gt;</b>
+     */
+
     @PatchMapping("/api/gifts/purchase")
     public ResponseEntity<String> buyGift(@RequestBody GiftPurchaseDto giftPurchaseDto){
         try{

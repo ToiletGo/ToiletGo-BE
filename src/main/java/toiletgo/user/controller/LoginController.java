@@ -19,7 +19,8 @@ import toiletgo.user.service.JwtService;
 /**
  * <h3>Login Controller</h3>
  *
- * <li><b> /login :</b> user id, pw를 받아서 로그인 요청을 하고 header에 jwt 반환 </li>
+ * <li><b> POST /login :</b> user id, pw를 받아서 로그인 요청을 하고 header에 jwt 반환 </li>
+ * <li><b> POST /logout :</b> 해당 jwt 만료 처리로 로그아웃 처리 </li>
  */
 
 @AllArgsConstructor
@@ -37,6 +38,14 @@ public class LoginController {
      * @return
      *  <b>ok: 200</b> <br>
      *  <b>fail: 401</b>
+     *  <hr>
+     *  <p><b>< Request examples ></b> <br><br>
+     *  <b>Content-Type : application/json</b> <br>
+     *  {<br>
+     *     "userid":"new_user124", <br>
+     *     "password":"user"<br>
+     *  }
+     *  </p>
      */
     @PostMapping("/login")
     public ResponseEntity<?> getToken(@RequestBody UserCredentials credentials) {
@@ -55,8 +64,17 @@ public class LoginController {
 
     /**
      * <h3>Post : /logout</h3>
-     * @param request
-     * @return ResponseEntity.status(HttpStatus. )
+     * @param
+     * <hr>
+     * @return ResponseEntity.status(HttpStatus. ) <br>
+     *      <b>ok: 200</b> <br>
+     *      <b>fail: 401</b>
+     *      <hr>
+     *      <p><b>< Request examples ></b> <br><br>
+     *      <b>content-Type 없습니다</b> <br><br>
+     *      <b>Authorization : Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZXdfdXNlcjEyNCIsImV4cCI6MTc0ODU5OTYyNH0.BQD9SKMXY4hZy5TJP6rY6mkCmy1bQ7BvpxThHQTV4oM</b> <br>
+     *
+     *     </p>
      */
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
