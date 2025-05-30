@@ -15,13 +15,14 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    //사용자 프로필 조회
     @PostMapping("/api/profile")
     public ResponseEntity<UserDto> showProfile(@RequestBody UserDto userDto){
         User user = userRepository.findById(userDto.getUserId()).orElse(null);
 
         userDto = UserDto.builder()
                 .userId(userDto.getUserId())
-                .username(user.getUsername())
+                .userName(user.getUsername())
                 .userPoint(user.getUserPoint())
                 .userTrust(user.getUserTrust())
                 .build();
@@ -33,6 +34,27 @@ public class UserController {
         }
     }
 
+    // id 중복 체크
+    @PostMapping("/api/user/id/check")
+    public boolean checkDuplicateId(@RequestBody UserDto userDto){
+        User target = userRepository.findById(userDto.getUserId()).orElse(null);
+        if(target != null){
+            return false;
+        }
+        return true;
+    }
+
+    // username 중복 체크
+    @PostMapping("/api/user/username/check")
+    public boolean checkDuplicateName(@RequestBody UserDto userDto){
+        User target = userRepository.findByUsername(userDto.getUserName()).orElse(null);
+        if(target != null){
+            return false;
+        }
+        return true;
+    }
+
+    // 유저 정보 수정
     @PatchMapping("/api/edit/user")
     public ResponseEntity<String> modifyUser(@RequestBody UserDto userDto) {
         try {
@@ -40,7 +62,7 @@ public class UserController {
             if (user == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 유저가 존재하지 않습니다.");
             }
-            user.setUsername(userDto.getUsername());
+            user.setUsername(userDto.getUserName());
             // user.setPassword(userDto.getPassword());
             user.setUserProfileImg(userDto.getUserProfileImg());
 
@@ -52,7 +74,7 @@ public class UserController {
 
     }
 
-    //admin
+    //admin 신고가 들어온 유저 삭제
     @DeleteMapping("/api/admin/delete/user")
     public ResponseEntity<String> deleteUser(@RequestBody ReportDto reportDto) {
         try {
@@ -68,4 +90,5 @@ public class UserController {
                     .body("삭제 처리 중 오류 발생: " + e.getMessage());
         }
     }
+    
 }

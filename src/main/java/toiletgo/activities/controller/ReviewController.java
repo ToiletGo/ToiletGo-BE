@@ -12,6 +12,7 @@ import toiletgo.user.entity.User;
 import toiletgo.activities.repository.ToiletRepository;
 import toiletgo.user.repository.UserRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,13 @@ public class ReviewController {
             Review review = reviewDto.toEntity(user, toilet);
             reviewRepository.save(review);
 
+            List<Review> reviews = reviewRepository.findByToilet_ToiletId(reviewDto.getToiletId());
+            double count = 0;
+            for(Review r : reviews){
+                count += r.getRating();
+            }
+            toilet.setRating(BigDecimal.valueOf(count / reviews.size()));
+            toiletRepository.save(toilet);
             return ResponseEntity.status(HttpStatus.CREATED).body("리뷰가 성공적으로 등록되었습니다.");
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("등록 중 오류가 발생했습니다.");

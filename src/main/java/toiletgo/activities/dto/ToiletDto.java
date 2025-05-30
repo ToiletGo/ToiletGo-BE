@@ -20,9 +20,11 @@ public class ToiletDto {
     private BigDecimal longitude;
 
     //화장실현황 여 1, 남1
+    private String buildingName;
     private String toiletStatus;
     private String note;
     private BigDecimal rating;
+    private Integer reviewCount;
     private Boolean hasDiaperTable;
     private Boolean hasHandicapAccess;
     private Boolean hasBidet;
@@ -33,6 +35,7 @@ public class ToiletDto {
                 .toiletId(toilet.getToiletId())
                 .latitude(toilet.getLatitude())
                 .longitude(toilet.getLongitude())
+                .buildingName(toilet.getBuildingName())
                 .toiletStatus(toilet.getToiletStatus())
                 .note(toilet.getNote())
                 .rating(toilet.getRating())
@@ -50,7 +53,7 @@ public class ToiletDto {
                 .lotAddress(null)
                 .latitude(this.latitude)
                 .longitude(this.longitude)
-                .buildingName(null)
+                .buildingName(this.buildingName)
                 .guName(null)
                 .telNo(null)
                 .toiletType(null)

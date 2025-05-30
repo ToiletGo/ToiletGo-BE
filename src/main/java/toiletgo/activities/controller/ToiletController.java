@@ -1,4 +1,4 @@
-package toiletgo.user.controller;
+package toiletgo.activities.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

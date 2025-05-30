@@ -67,7 +67,7 @@ public class User {
     public UserDto toDto() {
         return UserDto.builder()
                 .userId(this.userId)
-                .username(this.username)
+                .userName(this.username)
                 .userPoint(this.userPoint)
                 .userTrust(this.userTrust)
                 .userProfileImg(this.userProfileImg)
