@@ -30,6 +30,7 @@ public class GiftController {
 
     @Autowired
     GiftListRepository giftListRepository;
+
     @Autowired
     GiftRepository giftRepository;
 
@@ -128,8 +129,6 @@ public class GiftController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("선물 관리 중 오류 발생: " + e.getMessage());
         }
-
     }
-
 
 }
