@@ -1,0 +1,76 @@
+package toiletgo.user.service;
+
+import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import toiletgo.activities.dto.ReportDto;
+import toiletgo.user.dto.UserDto;
+import toiletgo.user.entity.User;
+import toiletgo.user.repository.UserRepository;
+
+
+@Service
+@AllArgsConstructor
+public class UserService {
+
+    private final UserRepository userRepository;
+
+    // 기존 메소드들 생략…
+
+    /**
+     * (추가) User 엔티티 자체가 필요할 때 사용하는 메소드
+     * @param userId 조회할 유저 ID
+     * @return User 엔티티
+     * @throws EntityNotFoundException 해당 유저가 없을 때
+     */
+    public User getUserEntity(String userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("해당 유저가 존재하지 않습니다."));
+    }
+
+    /**
+     * (기존) getProfile: UserDto 반환
+     */
+    public UserDto getProfile(String userId) {
+        User user = getUserEntity(userId);
+        return UserDto.builder()
+                .userId(user.getUserId())
+                .userName(user.getUsername())
+                .userPoint(user.getUserPoint())
+                .userTrust(user.getUserTrust())
+                .userProfileImg(user.getUserProfileImg())
+                .build();
+    }
+
+    /**
+     * (기존) ID 중복 체크
+     */
+    public boolean checkDuplicateId(String userId) {
+        return !userRepository.findById(userId).isPresent();
+    }
+
+    /**
+     * (기존) username 중복 체크
+     */
+    public boolean checkDuplicateName(String username) {
+        return !userRepository.findByUsername(username).isPresent();
+    }
+
+    /**
+     * (기존) 유저 정보 수정
+     */
+    public void modifyUser(UserDto dto) {
+        User user = getUserEntity(dto.getUserId());
+        user.setUsername(dto.getUserName());
+        user.setUserProfileImg(dto.getUserProfileImg());
+        userRepository.save(user);
+    }
+
+    /**
+     * (기존) 관리자용: 유저 삭제
+     */
+    public void deleteUser(ReportDto reportDto) {
+        User user = getUserEntity(reportDto.getUserId());
+        userRepository.delete(user);
+    }
+}

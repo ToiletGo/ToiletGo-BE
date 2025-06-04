@@ -78,6 +78,9 @@ public class Toilet {
     @Column(precision = 3, scale = 2, name = "rating", nullable = true)
     private BigDecimal rating;
 
+    @Column
+    private Integer reviewCount;
+
     @Column(name="has_diaper_table", nullable = true)
     private Boolean hasDiaperTable;
 
@@ -100,16 +103,17 @@ public class Toilet {
 
     public ToiletDto toDto() {
         return ToiletDto.builder()
-                .toiletId(this.getToiletId())
-                .latitude(this.getLatitude())
-                .longitude(this.getLongitude())
-                .toiletStatus(this.getToiletStatus())
-                .note(this.getNote())
-                .rating(this.getRating())
-                .hasDiaperTable(this.getHasDiaperTable())
-                .hasHandicapAccess(this.getHasHandicapAccess())
-                .hasBidet(this.getHasBidet())
-                .hasTissue(this.getHasTissue())
+                .toiletId(this.toiletId)
+                .latitude(this.latitude)
+                .longitude(this.longitude)
+                .toiletStatus(this.toiletStatus)
+                .note(this.note)
+                .rating(this.rating)
+                .reviewCount(this.reviewCount)
+                .hasDiaperTable(this.hasDiaperTable)
+                .hasHandicapAccess(this.hasHandicapAccess)
+                .hasBidet(this.hasBidet)
+                .hasTissue(this.hasTissue)
                 .build();
     }
 
