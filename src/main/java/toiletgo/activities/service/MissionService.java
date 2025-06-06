@@ -1,5 +1,6 @@
 package toiletgo.activities.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import toiletgo.activities.dto.MissionListDto;
@@ -13,12 +14,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class MissionService {
-    @Autowired
-    private MissionRepository missionRepository;
-    @Autowired
-    private ReviewService reviewService;
+    private final MissionRepository missionRepository;
+    private final ReviewService reviewService;
 
     public List<MissionListDto> getMissions(UserDto userDto){
         List<Mission> missions =  missionRepository.findRandomMissionsByUserId(userDto.getUserId());

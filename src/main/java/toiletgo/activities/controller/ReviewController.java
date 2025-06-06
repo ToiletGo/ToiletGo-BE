@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import toiletgo.activities.dto.ReviewDto;
+import toiletgo.activities.dto.ToiletDto;
 import toiletgo.activities.entity.Toilet;
 import toiletgo.activities.service.ReviewService;
 import toiletgo.activities.service.ToiletService;
@@ -23,14 +24,18 @@ public class ReviewController {
      * POST /api/reviews/create
      * 리뷰 남기기
      */
+
     @PostMapping("/api/reviews/create")
     public ResponseEntity<String> createReview(@RequestBody ReviewDto reviewDto) {
         try {
             reviewService.createReview(reviewDto);
-            Toilet toilet = toiletService.getToiletById(reviewDto.getToiletId());
-            if(reviewDto.getToiletId())
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body("리뷰가 성공적으로 등록되었습니다.");
+
+            ToiletDto toilet = toiletService.getToiletById(reviewDto.getToiletId());
+            if(reviewDto.getToiletId() != 0){
+                return ResponseEntity.status(HttpStatus.CREATED)
+                        .body("리뷰가 성공적으로 등록되었습니다.");
+            }
+
         }
         // userId 또는 toiletId가 유효하지 않을 때 400 Bad Request
         catch (IllegalArgumentException e) {
@@ -42,6 +47,8 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("등록 중 오류가 발생했습니다: " + e.getMessage());
         }
+
+        return ResponseEntity.status(200).body("200 ok");
     }
 
     /**
