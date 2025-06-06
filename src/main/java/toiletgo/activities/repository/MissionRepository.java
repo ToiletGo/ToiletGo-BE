@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface MissionRepository extends JpaRepository<Mission, Long> {
-    @Query(value = "SELECT * FROM mission WHERE user_id = :userId ORDER BY RAND() LIMIT 3", nativeQuery = true)
-    List<Mission> findRandomMissionsByUserId(String userId);
+    List<Mission> findByUser_UserId(String userId);
     Mission findByUser_UserIdAndMissionList_MissionId(String userId, Long missionId);
 }

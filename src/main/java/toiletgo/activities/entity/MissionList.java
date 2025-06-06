@@ -35,7 +35,7 @@ public class MissionList {
     @Column(name = "point", nullable = false)
     private Integer point;
 
-    public MissionList(String description, String missionName, Integer point){
+    public MissionList(String missionName,String description, Integer point){
         this.description = description;
         this.missionName = missionName;
         this.point = point;

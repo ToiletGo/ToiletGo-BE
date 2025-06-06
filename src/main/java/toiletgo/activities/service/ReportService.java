@@ -27,6 +27,7 @@ public class ReportService {
     private final ReportRepository reportRepository;
     private final UserService userService;            // 변경
     private final ToiletService toiletService;        // 변경
+    private final MissionService missionService;
     private final ReviewRepository reviewRepository;
 
     /**
@@ -45,6 +46,9 @@ public class ReportService {
 
         // DTO → Entity 변환 후 저장
         Report report = reportDto.toEntity(user, toilet, review);
+        if(toilet!=null){
+            missionService.completeMission10(user.getUserId());
+        }
         reportRepository.save(report);
     }
 
