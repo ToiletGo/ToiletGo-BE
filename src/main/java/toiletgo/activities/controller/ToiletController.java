@@ -53,7 +53,7 @@ public class ToiletController {
     @PostMapping("/api/toilet/get")
     public ResponseEntity<ToiletDto> getToilet(@RequestBody ToiletDto toiletDto) {
         try {
-            ToiletDto dto = toiletService.getToiletById(toiletDto.getToiletId());
+            ToiletDto dto = toiletService.getToiletDtoById(toiletDto.getToiletId());
             return ResponseEntity.ok(dto);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);

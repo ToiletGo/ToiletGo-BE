@@ -2,6 +2,8 @@ package toiletgo.activities.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import toiletgo.activities.dto.ReviewDto;
 import toiletgo.activities.entity.Review;
@@ -21,8 +23,12 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final UserService userService;          // UserService로 교체
     private final ToiletService toiletService;      // ToiletService로 교체
-    private final MissionService missionService;
+    private MissionService missionService;
 
+    @Autowired
+    public void setMissionService(@Lazy MissionService missionService) {
+        this.missionService = missionService;
+    }
     /**
      * 리뷰 생성 및 연관된 화장실 정보 업데이트, 미션 진행도 갱신
      */
@@ -50,6 +56,10 @@ public class ReviewService {
 
         // 6) 미션 진행도 갱신 (MissionService 사용)
         missionService.updateMission1Progress(user);
+
+        if(toilet.getRating().compareTo(BigDecimal.valueOf(3))>= 0){
+            missionService.updateMission4Progress(user);
+        }
     }
 
     /**

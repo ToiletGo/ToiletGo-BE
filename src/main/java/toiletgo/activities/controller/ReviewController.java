@@ -11,6 +11,7 @@ import toiletgo.activities.entity.Toilet;
 import toiletgo.activities.service.ReviewService;
 import toiletgo.activities.service.ToiletService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -47,8 +48,6 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("등록 중 오류가 발생했습니다: " + e.getMessage());
         }
-
-        return ResponseEntity.status(200).body("200 ok");
     }
 
     /**
