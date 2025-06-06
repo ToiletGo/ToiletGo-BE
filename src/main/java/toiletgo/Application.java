@@ -1,6 +1,7 @@
 package toiletgo;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -19,7 +20,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 
-@AllArgsConstructor
+
+@RequiredArgsConstructor
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
@@ -41,8 +43,8 @@ public class Application implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		User user1 = new User("user_id","user", "$2a$12$j8b7ZPi/44Otq2khAgfAQOeqDH.Y3sUIWIGNrk9Tf2j6jj2zU8udO");
 		User user2 = new User("user2","username2", "$2a$12$j8b7ZPi/44Otq2khAgfAQOeqDH.Y3sUIWIGNrk9Tf2j6jj2zU8udO");
-		Toilet toilet1 = new Toilet("강남구 테헤란로 1", new BigDecimal("127.00000001"), new BigDecimal("36.00000001"));
-		Toilet toilet2 = new Toilet("서초구 신반포로 12", new BigDecimal("126.99999929"), new BigDecimal("36.00000001"));
+		Toilet toilet1 = new Toilet("강남구 테헤란로 지하 538", new BigDecimal("127.063370"), new BigDecimal("37.508928"), new BigDecimal(3.51) );
+		Toilet toilet2 = new Toilet("서울 광진구 아차산로 244-2", new BigDecimal("127.069257"), new BigDecimal("37.540370"), new BigDecimal(2.51) );
 
 
 		MissionList missionList1 = new MissionList("화장실 3개에 리뷰 남기기", "리뷰 작성-1", 10);

@@ -94,10 +94,11 @@ public class Toilet {
     private Boolean hasTissue;
 
     // Test constructor
-    public Toilet(String roadAddress, BigDecimal latitude, BigDecimal longitude){
+    public Toilet(String roadAddress, BigDecimal latitude, BigDecimal longitude, BigDecimal rating){
         this.roadAddress = roadAddress;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.rating = rating;
     }
 
 
