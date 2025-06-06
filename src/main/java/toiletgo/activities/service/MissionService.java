@@ -1,6 +1,7 @@
 package toiletgo.activities.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import toiletgo.activities.dto.MissionListDto;
 import toiletgo.activities.entity.Mission;
@@ -17,8 +18,12 @@ import java.util.stream.Collectors;
 public class MissionService {
     @Autowired
     private MissionRepository missionRepository;
-    @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    public void setReviewService(@Lazy ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
 
     public List<MissionListDto> getMissions(UserDto userDto){
         List<Mission> missions =  missionRepository.findRandomMissionsByUserId(userDto.getUserId());
@@ -66,6 +71,23 @@ public class MissionService {
     //mission 3 해결 처리
     public void updateMission3Progress(String userId){
         Mission mission = missionRepository.findByUser_UserIdAndMissionList_MissionId(userId, 3L);
+        if(mission == null || mission.getIsCompleted()){
+            return;
+        }
+
+        int missionProgress = mission.getProgress()+20;
+        mission.setProgress(Math.min(missionProgress, 100));
+        if(missionProgress == 100 && !mission.getIsCompleted()){
+            mission.setIsCompleted(true);
+            mission.setCompletedAt(LocalDateTime.now());
+        }
+
+        missionRepository.save(mission);
+    }
+
+    //mission 4 해결 처리
+    public void updateMission4Progress(User user){
+        Mission mission = missionRepository.findByUser_UserIdAndMissionList_MissionId(user.getUserId(), 4L);
         if(mission == null || mission.getIsCompleted()){
             return;
         }

@@ -10,6 +10,7 @@ import toiletgo.activities.entity.Toilet;
 import toiletgo.activities.service.ReviewService;
 import toiletgo.activities.service.ToiletService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -17,7 +18,6 @@ import java.util.List;
 public class ReviewController {
 
     private final ReviewService reviewService;
-    private final ToiletService toiletService;
 
     /**
      * POST /api/reviews/create
@@ -27,8 +27,6 @@ public class ReviewController {
     public ResponseEntity<String> createReview(@RequestBody ReviewDto reviewDto) {
         try {
             reviewService.createReview(reviewDto);
-            Toilet toilet = toiletService.getToiletById(reviewDto.getToiletId());
-            if(reviewDto.getToiletId())
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body("리뷰가 성공적으로 등록되었습니다.");
         }

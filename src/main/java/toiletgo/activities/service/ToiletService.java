@@ -50,13 +50,21 @@ public class ToiletService {
     /**
      * 단일 화장실 조회 (DTO 반환)
      */
-    public ToiletDto getToiletById(Long toiletId) {
+    public ToiletDto getToiletDtoById(Long toiletId) {
         if (toiletId == null) {
             throw new IllegalArgumentException("화장실 ID가 유효하지 않습니다.");
         }
         Toilet toilet = toiletRepository.findById(toiletId)
                 .orElseThrow(() -> new EntityNotFoundException("해당 화장실이 존재하지 않습니다."));
         return toilet.toDto();
+    }
+
+    /**
+     * (추가) 엔티티 자체가 필요할 때 사용하는 메소드
+     */
+    public Toilet getToiletEntity(Long toiletId) {
+        return toiletRepository.findById(toiletId)
+                .orElseThrow(() -> new EntityNotFoundException("해당 화장실이 존재하지 않습니다."));
     }
 
     /**
@@ -96,11 +104,5 @@ public class ToiletService {
         toiletRepository.save(toilet);
     }
 
-    /**
-     * (추가) 엔티티 자체가 필요할 때 사용하는 메소드
-     */
-    public Toilet getToiletEntity(Long toiletId) {
-        return toiletRepository.findById(toiletId)
-                .orElseThrow(() -> new EntityNotFoundException("해당 화장실이 존재하지 않습니다."));
-    }
+
 }
