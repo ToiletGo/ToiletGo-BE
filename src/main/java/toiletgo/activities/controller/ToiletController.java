@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import toiletgo.activities.dto.ToiletDto;
 import toiletgo.activities.dto.ToiletSearchFilterDto;
+import toiletgo.activities.service.MissionService;
 import toiletgo.activities.service.ToiletService;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 public class ToiletController {
 
     private final ToiletService toiletService;
+    private final MissionService missionService;
 
     /**
      * GET /api/toilets
@@ -68,6 +70,8 @@ public class ToiletController {
     public ResponseEntity<String> createToilet(@RequestBody ToiletDto toiletDto) {
         try {
             toiletService.createToilet(toiletDto);
+            missionService.completeMission2(toiletDto.getUserId());
+            missionService.updateMission3Progress(toiletDto.getUserId());
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body("화장실이 성공적으로 등록되었습니다.");
         } catch (IllegalArgumentException e) {

@@ -30,6 +30,8 @@ public class ToiletDto {
     private Boolean hasBidet;
     private Boolean hasTissue;
 
+    private String userId;
+
     public static ToiletDto toDto(Toilet toilet) {
         return ToiletDto.builder()
                 .toiletId(toilet.getToiletId())
@@ -43,6 +45,7 @@ public class ToiletDto {
                 .hasHandicapAccess(toilet.getHasHandicapAccess())
                 .hasBidet(toilet.getHasBidet())
                 .hasTissue(toilet.getHasTissue())
+                .userId(null)
                 .build();
     }
 
