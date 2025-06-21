@@ -45,13 +45,14 @@ public class ToiletDto {
                 .hasHandicapAccess(toilet.getHasHandicapAccess())
                 .hasBidet(toilet.getHasBidet())
                 .hasTissue(toilet.getHasTissue())
-                .userId(null)
+                .userId(toilet.getUserId())
                 .build();
     }
 
     public Toilet toEntity() {
         return Toilet.builder()
                 .toiletId(this.toiletId) // 생성 시 생략 가능 (JPA가 자동 처리)
+                .userId(this.userId)
                 .roadAddress(null)
                 .lotAddress(null)
                 .latitude(this.latitude)

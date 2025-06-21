@@ -82,6 +82,7 @@ public class ToiletController {
     public ResponseEntity<String> createToilet(@RequestBody ToiletDto toiletDto, HttpServletRequest request) {
         try {
             String userId = jwtService.getAuthUser(request);
+            toiletDto.setUserId(userId);
             toiletService.createToilet(toiletDto);
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body("화장실이 성공적으로 등록되었습니다.");
