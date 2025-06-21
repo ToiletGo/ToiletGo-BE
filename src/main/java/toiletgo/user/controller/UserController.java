@@ -12,8 +12,8 @@ import toiletgo.user.service.UserService;
 /**
  * <h3>UserController</h3>
  * <li><b>POST /api/profile</b> 프로필 조회 </li>
- * <li><b>POST /api/user/id/check</b> id 중복 체크 </li>
- * <li><b>POST /api/user/username/check</b> 유저네임 중복 체크 </li>
+ * <li><b>GET /api/user/id/check</b> id 중복 체크 </li>
+ * <li><b>GET /api/user/username/check</b> 유저네임 중복 체크 </li>
  * <li><b>PATCH /api/edit/user</b> 유저 정보 수정 </li>
  * <li><b>DELETE /api/admin/delete/user</b> 신고가 들어온 유저 삭제 </li>
  */
@@ -38,21 +38,21 @@ public class UserController {
     }
 
     /**
-     * POST /api/user/id/check
+     * GET /api/user/id/check
      * ID 중복 체크
      */
-    @PostMapping("/api/user/id/check")
-    public boolean checkDuplicateId(@RequestBody UserDto userDto) {
-        return userService.checkDuplicateId(userDto.getUserId());
+    @GetMapping("/api/user/id/check")
+    public boolean checkDuplicateId(@RequestParam String userId) {
+        return userService.checkDuplicateId(userId);
     }
 
     /**
-     * POST /api/user/username/check
+     * GET /api/user/username/check
      * username 중복 체크
      */
-    @PostMapping("/api/user/username/check")
-    public boolean checkDuplicateName(@RequestBody UserDto userDto) {
-        return userService.checkDuplicateName(userDto.getUserName());
+    @GetMapping("/api/user/username/check")
+    public boolean checkDuplicateName(@RequestParam String username) {
+        return userService.checkDuplicateName(username);
     }
 
     /**
