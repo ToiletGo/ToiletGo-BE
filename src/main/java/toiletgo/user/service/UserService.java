@@ -2,8 +2,11 @@ package toiletgo.user.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import toiletgo.activities.dto.ReportDto;
+import toiletgo.activities.service.MissionService;
 import toiletgo.user.dto.UserDto;
 import toiletgo.user.entity.User;
 import toiletgo.user.repository.UserRepository;
@@ -14,9 +17,30 @@ import toiletgo.user.repository.UserRepository;
 public class UserService {
 
     private final UserRepository userRepository;
-
+    private final MissionService missionService;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     // 기존 메소드들 생략…
 
+    public String registerUser(User user) {
+        if (userRepository.existsById(user.getUserId())) {
+            throw new IllegalArgumentException("중복 id 입니다.");
+        }
+
+        user.setUserPoint(0);
+        user.setUserTrust(8);
+        user.setUserProfileImg(null);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+
+        // 유저에게 초기 미션 할당
+        missionService.assignAllMissionsToUser(user);
+
+        return "회원 가입이 완료되었습니다.";
+    }
+
+    public boolean isUserIdDuplicate(String userId) {
+        return userRepository.findById(userId).isPresent();
+    }
     /**
      * (추가) User 엔티티 자체가 필요할 때 사용하는 메소드
      * @param userId 조회할 유저 ID
@@ -72,5 +96,11 @@ public class UserService {
     public void deleteUser(ReportDto reportDto) {
         User user = getUserEntity(reportDto.getUserId());
         userRepository.delete(user);
+    }
+
+    //유저 포인트 증가
+    public void givePoint(String userId, int point){
+        User user = getUserEntity(userId);
+        user.setUserPoint(user.getUserPoint()+point);
     }
 }

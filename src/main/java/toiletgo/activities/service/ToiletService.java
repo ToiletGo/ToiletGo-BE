@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class ToiletService {
 
     private final ToiletRepository toiletRepository;
+    private final MissionService missionService;
 
     /**
      * 모든 화장실 조회
@@ -76,6 +77,18 @@ public class ToiletService {
         }
         Toilet toilet = dto.toEntity();
         toiletRepository.save(toilet);
+        missionService.completeMission2(dto.getUserId());
+        missionService.updateMission3Progress(dto.getUserId());
+        if(toilet.getHasHandicapAccess()==true){
+            missionService.completeMission6(dto.getUserId());
+        }
+        if(toilet.getHasDiaperTable()==true){
+            missionService.completeMission7(dto.getUserId());
+        }
+        if(toilet.getHasBidet()==true){
+            missionService.completeMission8(dto.getUserId());
+        }
+
     }
 
     /**

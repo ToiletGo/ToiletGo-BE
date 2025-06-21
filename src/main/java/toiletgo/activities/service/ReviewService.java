@@ -57,8 +57,15 @@ public class ReviewService {
         // 6) 미션 진행도 갱신 (MissionService 사용)
         missionService.updateMission1Progress(user);
 
+        // 평점에 따른 리뷰 미션 4,5
         if(toilet.getRating().compareTo(BigDecimal.valueOf(3))>= 0){
             missionService.updateMission4Progress(user);
+        }else if(toilet.getRating().compareTo(BigDecimal.valueOf(3))< 0){
+            missionService.updateMission5Progress(user);
+        }
+        // 비데가 있는 화장실에 대한 리뷰 미션 9
+        if(toilet.getHasBidet()){
+            missionService.updateMission9Progress(user);
         }
     }
 

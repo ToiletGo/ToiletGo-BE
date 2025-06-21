@@ -6,10 +6,12 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import toiletgo.activities.dto.MissionListDto;
 import toiletgo.activities.entity.Mission;
+import toiletgo.activities.entity.MissionList;
 import toiletgo.activities.repository.MissionRepository;
 import toiletgo.activities.repository.ReviewRepository;
 import toiletgo.user.dto.UserDto;
 import toiletgo.user.entity.User;
+import toiletgo.user.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,6 +22,11 @@ import java.util.stream.Collectors;
 public class MissionService {
     @Autowired
     private MissionRepository missionRepository;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private MissionListService missionListService;
+
     private ReviewService reviewService;
 
     @Autowired
@@ -28,7 +35,7 @@ public class MissionService {
     }
 
     public List<MissionListDto> getMissions(UserDto userDto){
-        List<Mission> missions =  missionRepository.findRandomMissionsByUserId(userDto.getUserId());
+        List<Mission> missions =  missionRepository.findByUser_UserId(userDto.getUserId());
 
         if (missions.isEmpty()) {
             return null;
@@ -40,6 +47,20 @@ public class MissionService {
         return missionListDtoList;
     }
 
+    //유저에게 미션 주입
+    public void assignAllMissionsToUser(User user) {
+        List<MissionList> missionLists = missionListService.getAllMissionLists();
+
+        for (MissionList missionList : missionLists) {
+            Mission mission = Mission.builder()
+                    .user(user)
+                    .missionList(missionList)
+                    .isCompleted(false)
+                    .progress(0)
+                    .build();
+            missionRepository.save(mission);
+        }
+    }
     //mission 1 해결 처리
     public void updateMission1Progress(User user){
         int reviewCount = reviewService.countReviewsByUserId(user.getUserId());
@@ -54,7 +75,9 @@ public class MissionService {
         if(reviewScore == 100 && !mission.getIsCompleted()){
             mission.setIsCompleted(true);
             mission.setCompletedAt(LocalDateTime.now());
+            userService.givePoint(user.getUserId(),mission.getMissionList().getPoint());
         }
+
 
         missionRepository.save(mission);
     }
@@ -68,6 +91,7 @@ public class MissionService {
         mission.setIsCompleted(true);
         mission.setCompletedAt(LocalDateTime.now());
 
+        userService.givePoint(userId,mission.getMissionList().getPoint());
         missionRepository.save(mission);
     }
     //mission 3 해결 처리
@@ -82,6 +106,7 @@ public class MissionService {
         if(missionProgress == 100 && !mission.getIsCompleted()){
             mission.setIsCompleted(true);
             mission.setCompletedAt(LocalDateTime.now());
+            userService.givePoint(userId,mission.getMissionList().getPoint());
         }
 
         missionRepository.save(mission);
@@ -94,15 +119,103 @@ public class MissionService {
             return;
         }
 
-        int missionProgress = mission.getProgress()+20;
-        mission.setProgress(Math.min(missionProgress, 100));
-        if(missionProgress == 100 && !mission.getIsCompleted()){
+        int missionProgress = mission.getProgress()+33;
+        mission.setProgress(Math.min(missionProgress, 99));
+        if(missionProgress == 99 && !mission.getIsCompleted()){
+            mission.setProgress(100);
             mission.setIsCompleted(true);
             mission.setCompletedAt(LocalDateTime.now());
+            userService.givePoint(user.getUserId(),mission.getMissionList().getPoint());
         }
 
         missionRepository.save(mission);
     }
 
+    //mission 5 해결 처리
+    public void updateMission5Progress(User user){
+        Mission mission = missionRepository.findByUser_UserIdAndMissionList_MissionId(user.getUserId(), 5L);
+        if(mission == null || mission.getIsCompleted()){
+            return;
+        }
+
+        int missionProgress = mission.getProgress()+33;
+        mission.setProgress(Math.min(missionProgress, 99));
+        if(missionProgress == 99 && !mission.getIsCompleted()){
+            mission.setProgress(100);
+            mission.setIsCompleted(true);
+            mission.setCompletedAt(LocalDateTime.now());
+            userService.givePoint(user.getUserId(),mission.getMissionList().getPoint());
+        }
+
+        missionRepository.save(mission);
+    }
+    //mission 6 해결 처리
+    public void completeMission6(String userId){
+        Mission mission = missionRepository.findByUser_UserIdAndMissionList_MissionId(userId, 6L);
+        if(mission == null || mission.getIsCompleted()){
+            return;
+        }
+        mission.setProgress(100);
+        mission.setIsCompleted(true);
+        mission.setCompletedAt(LocalDateTime.now());
+        userService.givePoint(userId,mission.getMissionList().getPoint());
+
+        missionRepository.save(mission);
+    }
+    //mission 7 해결 처리
+    public void completeMission7(String userId){
+        Mission mission = missionRepository.findByUser_UserIdAndMissionList_MissionId(userId, 7L);
+        if(mission == null || mission.getIsCompleted()){
+            return;
+        }
+        mission.setProgress(100);
+        mission.setIsCompleted(true);
+        mission.setCompletedAt(LocalDateTime.now());
+        userService.givePoint(userId,mission.getMissionList().getPoint());
+
+        missionRepository.save(mission);
+    }
+    //mission 8 해결 처리
+    public void completeMission8(String userId){
+        Mission mission = missionRepository.findByUser_UserIdAndMissionList_MissionId(userId, 8L);
+        if(mission == null || mission.getIsCompleted()){
+            return;
+        }
+        mission.setProgress(100);
+        mission.setIsCompleted(true);
+        mission.setCompletedAt(LocalDateTime.now());
+        userService.givePoint(userId,mission.getMissionList().getPoint());
+
+        missionRepository.save(mission);
+    }
+    //mission 9 해결 처리
+    public void updateMission9Progress(User user) {
+        Mission mission = missionRepository.findByUser_UserIdAndMissionList_MissionId(user.getUserId(), 9L);
+        if (mission == null || mission.getIsCompleted()) {
+            return;
+        }
+
+        int missionProgress = mission.getProgress() + 33;
+        mission.setProgress(Math.min(missionProgress, 100));
+        if (missionProgress == 99 && !mission.getIsCompleted()) {
+            mission.setProgress(100);
+            mission.setIsCompleted(true);
+            mission.setCompletedAt(LocalDateTime.now());
+            userService.givePoint(user.getUserId(), mission.getMissionList().getPoint());
+        }
+    }
+    //mission 10 해결 처리
+    public void completeMission10(String userId){
+        Mission mission = missionRepository.findByUser_UserIdAndMissionList_MissionId(userId, 10L);
+        if(mission == null || mission.getIsCompleted()){
+            return;
+        }
+        mission.setProgress(100);
+        mission.setIsCompleted(true);
+        mission.setCompletedAt(LocalDateTime.now());
+        userService.givePoint(userId,mission.getMissionList().getPoint());
+
+        missionRepository.save(mission);
+    }
 
 }

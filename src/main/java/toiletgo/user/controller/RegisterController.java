@@ -7,9 +7,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import toiletgo.activities.service.MissionService;
 import toiletgo.user.entity.User;
 import toiletgo.user.dto.UserDto;
 import toiletgo.user.repository.UserRepository;
+import toiletgo.user.service.UserService;
 
 import java.io.IOException;
 import java.net.SocketException;
@@ -27,7 +29,8 @@ import java.util.concurrent.TimeoutException;
 @RestController
 public class RegisterController {
     private final AuthenticationManager authenticationManager;
-    private final UserRepository userRepository;
+    private final UserService userService;
+    private final MissionService missionService;
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
@@ -48,45 +51,30 @@ public class RegisterController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
         try {
-            user.setUserPoint(0);
-            user.setUserTrust(8);
-            user.setUserProfileImg(null);
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-
-
-            if(userRepository.existsById(user.getUserId())){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("중복 id 입니다.");
-            }
-
-            userRepository.save(user);
-            return ResponseEntity.ok("회원 가입이 완료되었습니다.");
-
+            String message = userService.registerUser(user);
+            return ResponseEntity.ok(message);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
-
-            //400 Bad Request
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("회원가입 중 오류가 발생했습니다: " + e.getMessage());
         }
     }
 
     @GetMapping("/register/verify-user")
     public ResponseEntity<?> verifyUserId(@RequestParam String userId) {
-        try{
-
-            Optional<User> user = userRepository.findById(userId);
-            if(user.isPresent()) {
+        try {
+            boolean exists = userService.isUserIdDuplicate(userId);
+            if (exists) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("중복 id 입니다.");
             } else {
                 return ResponseEntity.ok("사용 가능한 id 입니다.");
             }
-
-        } catch(Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("검사 중 오류 발생");
         }
     }
+}
 
 
 
