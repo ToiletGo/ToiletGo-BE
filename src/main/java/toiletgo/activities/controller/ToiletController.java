@@ -1,6 +1,7 @@
 package toiletgo.activities.controller;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import toiletgo.activities.dto.ToiletDto;
 import toiletgo.activities.dto.ToiletSearchFilterDto;
 import toiletgo.activities.service.MissionService;
 import toiletgo.activities.service.ToiletService;
+import toiletgo.user.service.JwtService;
 
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class ToiletController {
 
     private final ToiletService toiletService;
     private final MissionService missionService;
+    private final JwtService jwtService;
 
     /**
      * GET /api/toilets
@@ -76,8 +79,9 @@ public class ToiletController {
      * 새로운 화장실 등록
      */
     @PostMapping("/api/toilet")
-    public ResponseEntity<String> createToilet(@RequestBody ToiletDto toiletDto) {
+    public ResponseEntity<String> createToilet(@RequestBody ToiletDto toiletDto, HttpServletRequest request) {
         try {
+            String userId = jwtService.getAuthUser(request);
             toiletService.createToilet(toiletDto);
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body("화장실이 성공적으로 등록되었습니다.");

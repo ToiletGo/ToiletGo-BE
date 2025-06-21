@@ -48,6 +48,8 @@ public class ToiletService {
                 .collect(Collectors.toList());
     }
 
+
+
     /**
      * 단일 화장실 조회 (DTO 반환)
      */
@@ -119,3 +121,23 @@ public class ToiletService {
 
 
 }
+
+
+
+    /*
+    {
+    "minLatitude":127,
+    "maxLatitude":128,
+    "minLongitude":37,
+    "maxLongitude":38,
+
+
+    "hasDiaperTable": false,
+
+    "hasHandicapAccess": false,
+    "hasBidet":false,
+    "hasTissue":false
+
+}
+
+     */

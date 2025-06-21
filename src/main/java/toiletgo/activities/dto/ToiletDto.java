@@ -14,10 +14,10 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class ToiletDto {
 
-    private Long toiletId;
+    private Long toiletId; // nullable false
 
-    private BigDecimal latitude;
-    private BigDecimal longitude;
+    private BigDecimal latitude; // nullable false
+    private BigDecimal longitude; // nullable false
 
     //화장실현황 여 1, 남1
     private String buildingName;
