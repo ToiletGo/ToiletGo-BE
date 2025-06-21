@@ -8,7 +8,6 @@ import toiletgo.activities.dto.MissionListDto;
 import toiletgo.activities.entity.Mission;
 import toiletgo.activities.entity.MissionList;
 import toiletgo.activities.repository.MissionRepository;
-import toiletgo.activities.repository.ReviewRepository;
 import toiletgo.user.dto.UserDto;
 import toiletgo.user.entity.User;
 import toiletgo.user.service.UserService;
@@ -20,68 +19,69 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class MissionService {
-    @Autowired
-    private MissionRepository missionRepository;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private MissionListService missionListService;
 
+    private final MissionRepository missionRepository;
+    private final MissionListService missionListService;
+
+    // 여기는 생성자 주입만
+    @Autowired
+    public MissionService(MissionRepository missionRepository,
+                          MissionListService missionListService) {
+        this.missionRepository = missionRepository;
+        this.missionListService = missionListService;
+    }
+
+    // 순환 고리인 UserService, ReviewService 는 지연된 세터 주입으로만!
+    private UserService userService;
     private ReviewService reviewService;
+
+    @Autowired
+    public void setUserService(@Lazy UserService userService) {
+        this.userService = userService;
+    }
 
     @Autowired
     public void setReviewService(@Lazy ReviewService reviewService) {
         this.reviewService = reviewService;
     }
 
-    public List<MissionListDto> getMissions(UserDto userDto){
-        List<Mission> missions =  missionRepository.findByUser_UserId(userDto.getUserId());
-
-        if (missions.isEmpty()) {
-            return null;
-        }
-
-        List<MissionListDto> missionListDtoList = missions.stream()
-                .map(mission -> mission.toDto())
+    public List<MissionListDto> getMissions(UserDto userDto) {
+        List<Mission> missions = missionRepository.findByUser_UserId(userDto.getUserId());
+        if (missions.isEmpty()) return null;
+        return missions.stream()
+                .map(Mission::toDto)
                 .collect(Collectors.toList());
-        return missionListDtoList;
     }
 
-    //유저에게 미션 주입
     public void assignAllMissionsToUser(User user) {
         List<MissionList> missionLists = missionListService.getAllMissionLists();
-
-        for (MissionList missionList : missionLists) {
-            Mission mission = Mission.builder()
+        for (MissionList ml : missionLists) {
+            Mission m = Mission.builder()
                     .user(user)
-                    .missionList(missionList)
+                    .missionList(ml)
                     .isCompleted(false)
                     .progress(0)
                     .build();
-            missionRepository.save(mission);
+            missionRepository.save(m);
         }
     }
-    //mission 1 해결 처리
-    public void updateMission1Progress(User user){
-        int reviewCount = reviewService.countReviewsByUserId(user.getUserId());
-        int reviewScore = reviewCount * 20;
 
-        Mission mission = missionRepository.findByUser_UserIdAndMissionList_MissionId(user.getUserId(), 1L);
-        if(mission == null || mission.getIsCompleted()){
-            return;
-        }
+    public void updateMission1Progress(User user) {
+        int score = reviewService.countReviewsByUserId(user.getUserId()) * 20;
+        Mission mission = missionRepository
+                .findByUser_UserIdAndMissionList_MissionId(user.getUserId(), 1L);
+        if (mission == null || mission.getIsCompleted()) return;
 
-        mission.setProgress(Math.min(reviewScore,100));
-        if(reviewScore == 100 && !mission.getIsCompleted()){
+        mission.setProgress(Math.min(score, 100));
+        if (score == 100) {
             mission.setIsCompleted(true);
             mission.setCompletedAt(LocalDateTime.now());
-            userService.givePoint(user.getUserId(),mission.getMissionList().getPoint());
+            userService.givePoint(user.getUserId(), mission.getMissionList().getPoint());
         }
-
-
         missionRepository.save(mission);
     }
-    //mission 2 해결 처리
+
+//mission 2 해결 처리
     public void completeMission2(String userId){
         Mission mission = missionRepository.findByUser_UserIdAndMissionList_MissionId(userId, 2L);
         if(mission == null || mission.getIsCompleted()){
