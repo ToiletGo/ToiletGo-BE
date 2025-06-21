@@ -1,17 +1,20 @@
 package toiletgo.user.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import toiletgo.activities.dto.ReportDto;
+import toiletgo.activities.exception.DuplicateUserNameException;
 import toiletgo.activities.service.MissionService;
 import toiletgo.user.dto.UserDto;
 import toiletgo.user.entity.User;
 import toiletgo.user.repository.UserRepository;
 
+@Slf4j
 @Service
 public class UserService {
 
@@ -93,8 +96,11 @@ public class UserService {
     /**
      * (기존) 유저 정보 수정
      */
-    public void modifyUser(UserDto dto) {
+    public void modifyUser(UserDto dto) throws DuplicateUserNameException {
         User user = getUserEntity(dto.getUserId());
+        if(!checkDuplicateName(dto.getUserName())){
+            throw new DuplicateUserNameException("중복된 유저입니다");
+        }
         user.setUsername(dto.getUserName());
         user.setUserProfileImg(dto.getUserProfileImg());
         userRepository.save(user);

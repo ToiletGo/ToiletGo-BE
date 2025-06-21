@@ -7,7 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import toiletgo.activities.dto.ReportDto;
 import toiletgo.user.dto.UserDto;
+import toiletgo.user.repository.UserRepository;
 import toiletgo.user.service.UserService;
+import toiletgo.activities.exception.DuplicateUserNameException;
 
 /**
  * <h3>UserController</h3>
@@ -21,6 +23,7 @@ import toiletgo.user.service.UserService;
 @AllArgsConstructor
 public class UserController {
 
+    private final UserRepository userRepository;
     private final UserService userService;
 
     /**
@@ -68,7 +71,11 @@ public class UserController {
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(e.getMessage());
-        } catch (Exception e) {
+        } catch (DuplicateUserNameException de){
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("이미 존재하는 이름입니다.");
+        }
+        catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("수정 중 오류가 발생했습니다: " + e.getMessage());
         }
