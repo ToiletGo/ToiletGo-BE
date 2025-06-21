@@ -18,6 +18,7 @@ import toiletgo.user.entity.User;
 import toiletgo.user.repository.UserRepository;
 import toiletgo.user.service.JwtService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,6 +59,10 @@ public class GiftService {
         GiftList giftListEntity = giftListRepository
                 .findById(giftPurchaseDto.getGiftId())
                 .orElseThrow(() -> new EntityNotFoundException("해당 선물이 존재하지 않습니다."));
+
+        giftListEntity.setIsAssigned(true);
+        giftListEntity.setExpiration(LocalDate.now().plusMonths(1));
+        // giftListRepository.save(giftListEntity); // Optional: 변경 감지(Dirty Checking)로 자동 반영됩니다.
 
         User user = userRepository
                 .findById(giftPurchaseDto.getUserId())

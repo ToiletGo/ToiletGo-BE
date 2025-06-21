@@ -66,6 +66,7 @@ public class Report {
                 .description(this.description)
                 .isProcessed(this.isProcessed)
                 .reportAt(this.reportAt)
+                .userName(this.user.getUsername())
                 .build();
     }
 

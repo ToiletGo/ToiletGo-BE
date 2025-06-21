@@ -115,6 +115,7 @@ public class Toilet {
                 .hasHandicapAccess(this.hasHandicapAccess)
                 .hasBidet(this.hasBidet)
                 .hasTissue(this.hasTissue)
+                .buildingName(this.buildingName)
                 .build();
     }
 
