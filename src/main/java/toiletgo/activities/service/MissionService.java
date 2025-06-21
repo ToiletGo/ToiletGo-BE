@@ -79,7 +79,7 @@ public class MissionService {
         missionRepository.save(mission);
     }
 
-//mission 2 해결 처리
+    //mission 2 해결 처리
     public void completeMission2(String userId){
         Mission mission = missionRepository.findByUser_UserIdAndMissionList_MissionId(userId, 2L);
         if(mission == null || mission.getIsCompleted()){

@@ -21,8 +21,8 @@ public class Mission {
     @Column(nullable = false, name = "mission_no")
     private Long missionNo;
 
-    @JoinColumn(name="mission_id")
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="mission_id", nullable = false)
     private MissionList missionList;
 
     @ManyToOne(fetch = FetchType.LAZY)

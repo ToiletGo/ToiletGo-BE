@@ -2,6 +2,7 @@ package toiletgo.activities.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import toiletgo.activities.dto.ReportDto;
 import toiletgo.activities.entity.Report;

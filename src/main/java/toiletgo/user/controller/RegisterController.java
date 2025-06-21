@@ -21,8 +21,8 @@ import java.util.concurrent.TimeoutException;
 /**
  * <h3>Register Controller</h3>
  *
- * <li><b>/login/register :</b> 입력한 회원 정보를 받아서 최종 회원 등록 요청 </li>
- * <li><b>/login/register/verify-user :</b> 중복 유저 확인</li>
+ * <li><b>POST /login/register :</b> 입력한 회원 정보를 받아서 최종 회원 등록 요청 </li>
+ * <li><b>GET /login/register/verify-user :</b> 중복 유저 확인</li>
  */
 
 @AllArgsConstructor
@@ -75,6 +75,8 @@ public class RegisterController {
         }
     }
 }
+
+
 
 // userRepository.existsById(userId)
 
