@@ -27,6 +27,7 @@ public class ReportDto {
 
     private boolean isProcessed;
     private LocalDateTime reportAt;
+    private String userName;
 
     public Report toEntity(User user, Toilet toilet, Review review) {
         return Report.builder()

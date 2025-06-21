@@ -85,7 +85,7 @@ public class ToiletController {
      * POST /api/admin/toilet/delete
      * 관리자용: 특정 화장실 삭제
      */
-    @PostMapping("/api/admin/toilet/delete")
+    @DeleteMapping("/api/admin/toilet/delete")
     public ResponseEntity<String> deleteToilet(@RequestBody ToiletDto toiletDto) {
         try {
             toiletService.deleteToilet(toiletDto.getToiletId());

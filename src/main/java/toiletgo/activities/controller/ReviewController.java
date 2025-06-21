@@ -61,7 +61,7 @@ public class ReviewController {
      * POST /api/admin/review/delete
      * 관리자용: 특정 리뷰 삭제
      */
-    @PostMapping("/api/admin/review/delete")
+    @DeleteMapping("/api/admin/review/delete")
     public ResponseEntity<String> deleteReview(@RequestBody ReviewDto reviewDto) {
         try {
             reviewService.deleteReview(reviewDto.getReviewId());
