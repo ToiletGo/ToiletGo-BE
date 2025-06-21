@@ -68,6 +68,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/register/verify-user").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/toilets").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/toilet/get").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/toilets/filter").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/toilet/get").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/user/id/check").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/user/username/check").permitAll()
                         .requestMatchers(

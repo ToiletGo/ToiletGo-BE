@@ -14,10 +14,10 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class ToiletDto {
 
-    private Long toiletId;
+    private Long toiletId; // nullable false
 
-    private BigDecimal latitude;
-    private BigDecimal longitude;
+    private BigDecimal latitude; // nullable false
+    private BigDecimal longitude; // nullable false
 
     //화장실현황 여 1, 남1
     private String buildingName;
@@ -45,13 +45,14 @@ public class ToiletDto {
                 .hasHandicapAccess(toilet.getHasHandicapAccess())
                 .hasBidet(toilet.getHasBidet())
                 .hasTissue(toilet.getHasTissue())
-                .userId(null)
+                .userId(toilet.getUserId())
                 .build();
     }
 
     public Toilet toEntity() {
         return Toilet.builder()
                 .toiletId(this.toiletId) // 생성 시 생략 가능 (JPA가 자동 처리)
+                .userId(this.userId)
                 .roadAddress(null)
                 .lotAddress(null)
                 .latitude(this.latitude)

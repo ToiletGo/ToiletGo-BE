@@ -93,6 +93,9 @@ public class Toilet {
     @Column(name="has_tissue", nullable = true)
     private Boolean hasTissue;
 
+    @Column(name="user_id", nullable = true)
+    private String userId;
+
     // Test constructor
     public Toilet(String roadAddress, BigDecimal latitude, BigDecimal longitude, BigDecimal rating){
         this.roadAddress = roadAddress;

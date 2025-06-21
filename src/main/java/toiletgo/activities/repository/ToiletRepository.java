@@ -11,8 +11,8 @@ import java.util.List;
 @Repository
 public interface ToiletRepository extends JpaRepository<Toilet, Long> {
     @Query("SELECT t FROM Toilet t WHERE " +
-            "t.latitude BETWEEN :minLat AND :maxLat AND " +
-            "t.longitude BETWEEN :minLng AND :maxLng AND " +
+            "(:minLat IS NULL OR :maxLat IS NULL OR t.latitude BETWEEN :minLat AND :maxLat OR t.latitude IS NULL) AND " +
+            "(:minLng IS NULL OR :maxLng IS NULL OR t.longitude BETWEEN :minLng AND :maxLng OR t.longitude IS NULL) AND " +
             "(:hasDiaperTable IS NULL OR t.hasDiaperTable = :hasDiaperTable) AND " +
             "(:hasHandicapAccess IS NULL OR t.hasHandicapAccess = :hasHandicapAccess) AND " +
             "(:hasBidet IS NULL OR t.hasBidet = :hasBidet) AND " +
