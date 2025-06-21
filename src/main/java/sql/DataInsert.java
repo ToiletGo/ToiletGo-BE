@@ -26,7 +26,7 @@ public class DataInsert {
         String password = props.getProperty("jdbc.password");
 
         String fileName = "src/main/resources/toilet.csv";
-        String insertSQL = "INSERT INTO toilet (road_address, lot_address, latitude, longitude, building_name, gu_name, tel_no, toilet_type, open_time, toilet_usage, toilet_status, has_handicap_access, facilities, sign_info, location_detail, note) " +
+        String insertSQL = "INSERT INTO toilet (road_address, lot_address, longitude, latitude, building_name, gu_name, tel_no, toilet_type, open_time, toilet_usage, toilet_status, has_handicap_access, facilities, sign_info, location_detail, note) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (
