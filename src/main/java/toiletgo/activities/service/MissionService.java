@@ -1,6 +1,5 @@
 package toiletgo.activities.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 @Service
 public class MissionService {
 
@@ -81,7 +79,7 @@ public class MissionService {
         missionRepository.save(mission);
     }
 
-//mission 2 해결 처리
+    //mission 2 해결 처리
     public void completeMission2(String userId){
         Mission mission = missionRepository.findByUser_UserIdAndMissionList_MissionId(userId, 2L);
         if(mission == null || mission.getIsCompleted()){

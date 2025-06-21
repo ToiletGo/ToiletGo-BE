@@ -13,11 +13,11 @@ public class DataInsert {
     public static void main(String[] args) {
 
         Properties props = new Properties();
-        try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {
+        try (InputStream input = new FileInputStream("src/main/resources/insert.properties")) {
             props.load(input);
-            System.out.println("application.properties 읽기 성공 ");
+            System.out.println("insert.properties 읽기 성공 ");
         } catch (IOException e) {
-            System.err.println("application.properties 읽기 실패: " + e.getMessage());
+            System.err.println("insert.properties 읽기 실패: " + e.getMessage());
             return;
         }
 

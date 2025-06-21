@@ -20,7 +20,12 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 
-
+/**
+ * <h3>Application</h3>
+ * <b>Elastic IP : 15.164.220.91 </b>
+ *
+ *
+ */
 @RequiredArgsConstructor
 @SpringBootApplication
 public class Application implements CommandLineRunner {

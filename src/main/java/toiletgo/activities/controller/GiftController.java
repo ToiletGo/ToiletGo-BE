@@ -14,6 +14,7 @@ import toiletgo.activities.dto.MissionListDto;
 import toiletgo.activities.entity.Gift;
 import toiletgo.activities.entity.GiftList;
 import toiletgo.activities.entity.Mission;
+import toiletgo.activities.exception.GiftAlreadyUsedException;
 import toiletgo.activities.repository.GiftListRepository;
 import toiletgo.activities.repository.GiftRepository;
 import toiletgo.activities.service.GiftService;
@@ -75,6 +76,8 @@ public class GiftController {
             return ResponseEntity.ok("구매가 완료되었습니다.");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (GiftAlreadyUsedException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("기프티콘 구매중 오류 발생: " + e.getMessage());

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * MissionList : table mission_list
  * 미션 목록
@@ -21,9 +24,9 @@ public class MissionList {
     @Column(name = "mission_id")
     private Long missionId;
 
-    @OneToOne(mappedBy = "missionList")
+    @OneToMany(mappedBy = "missionList")
     @JsonIgnore
-    private Mission mission;
+    private List<Mission> missions = new ArrayList<>();
 
     @Column(name = "description", length = 1024)
     private String description;

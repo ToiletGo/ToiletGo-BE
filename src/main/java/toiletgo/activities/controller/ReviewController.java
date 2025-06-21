@@ -31,12 +31,14 @@ public class ReviewController {
         try {
             reviewService.createReview(reviewDto);
 
-            ToiletDto toilet = toiletService.getToiletById(reviewDto.getToiletId());
+            ToiletDto toilet = toiletService.getToiletDtoById(reviewDto.getToiletId());
             if(reviewDto.getToiletId() != 0){
                 return ResponseEntity.status(HttpStatus.CREATED)
                         .body("리뷰가 성공적으로 등록되었습니다.");
             }
 
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("BAD_REQUEST");
         }
         // userId 또는 toiletId가 유효하지 않을 때 400 Bad Request
         catch (IllegalArgumentException e) {
@@ -48,6 +50,8 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("등록 중 오류가 발생했습니다: " + e.getMessage());
         }
+
+
     }
 
     /**
