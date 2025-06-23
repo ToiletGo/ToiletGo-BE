@@ -69,10 +69,10 @@ public class ToiletDto {
                 .signInfo(null)
                 .note(this.note)
                 .rating(this.rating)
-                .hasDiaperTable(this.hasDiaperTable)
-                .hasHandicapAccess(this.hasHandicapAccess)
-                .hasBidet(this.hasBidet)
-                .hasTissue(this.hasTissue)
+                .hasDiaperTable(this.hasDiaperTable != null ? this.hasDiaperTable : false)
+                .hasHandicapAccess(this.hasHandicapAccess != null ? this.hasHandicapAccess : false)
+                .hasBidet(this.hasBidet != null ? this.hasBidet : false)
+                .hasTissue(this.hasTissue != null ? this.hasTissue : false)
                 .build();
     }
 }
