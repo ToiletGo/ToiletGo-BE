@@ -87,7 +87,7 @@ public class ToiletService {
         if(toilet.getHasDiaperTable()==true){
             missionService.completeMission7(dto.getUserId());
         }
-        if(toilet.getHasBidet()==true){
+        if(toilet.getHasTissue()==true){
             missionService.completeMission8(dto.getUserId());
         }
 

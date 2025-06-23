@@ -63,7 +63,6 @@ public class Toilet {
     @Column(name="location_detail", nullable = true)
     private String locationDetail;
 
-
     @Lob
     @Column(name="facilities", nullable = true)
     private String facilities;
@@ -119,6 +118,7 @@ public class Toilet {
                 .hasBidet(this.hasBidet)
                 .hasTissue(this.hasTissue)
                 .buildingName(this.buildingName)
+                .userId(this.userId)
                 .build();
     }
 

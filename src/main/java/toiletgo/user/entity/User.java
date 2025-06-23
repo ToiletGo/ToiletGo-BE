@@ -62,6 +62,7 @@ public class User {
         this.userId = userId;
         this.username = username;
         this.password = password;
+        this.userPoint = 0;
     }
 
     public UserDto toDto() {

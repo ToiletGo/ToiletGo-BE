@@ -50,10 +50,16 @@ public class Sample implements CommandLineRunner {
         Toilet toilet2 = new Toilet("서울 광진구 아차산로 244-2", new BigDecimal("37.540370"), new BigDecimal("127.069257"), new BigDecimal(2.51) );
 
 
-        MissionList missionList1 = new MissionList("화장실 3개에 리뷰 남기기", "리뷰 작성-1", 10);
-        MissionList missionList2 = new MissionList("화장실 10개에 리뷰 남기기", "리뷰 작성-2", 10);
-        MissionList missionList3 = new MissionList("화장실 8개에 리뷰 남기기", "리뷰 작성-3", 10);
-        MissionList missionList5 = new MissionList("화장실 9개에 리뷰 남기기", "리뷰 작성-4", 10);
+        MissionList missionList1 = new MissionList("리뷰 5개 남기기", "화장실 이용 경험에 따라 리뷰 5개를 남겨주세요.", 50);
+        MissionList missionList2 = new MissionList("가장 만족스러웠던 화장실 등록", "최근 이용한 최고의 화장실을 등록해주세요", 30);
+        MissionList missionList3 = new MissionList("화장실 개척자", "화장실을 5개 등록해주세요", 50);
+        MissionList missionList4 = new MissionList("나는야 귀한 사람", "평점이 3 이상인 화장실을 3개 사용하고 리뷰를 남겨주세요.", 30);
+        MissionList missionList5 = new MissionList("나는 쓸수만 있으면 돼", "평점이 3 미만인 화장실을 3개 사용하고 리뷰를 남겨주세요.", 50);
+        MissionList missionList6 = new MissionList("장애인 화장실 발견", "장애인 화장실이 있는 화장실을 등록해주세요.", 30);
+        MissionList missionList7 = new MissionList("유아용 의자 화장실 발견", "유아용 의자가 있는 화장실을 등록해주세요.", 30);
+        MissionList missionList8 = new MissionList("난 휴지 없으면 안 돼", "휴지가 있는 화장실을 등록해주세요", 30);
+        MissionList missionList9 = new MissionList("난 비데 없으면 안 돼", "비데가 있는 화장실에 대한 리뷰 3개를 남겨주세요.", 60);
+        MissionList missionList10 = new MissionList("나는야 보안관", "잘못 등록되어있는 화장실을 신고해주세요", 100);
         Mission mission1 = new Mission().missionConstructor(missionList2, user1, 8, false, LocalDateTime.now());
         Mission mission2 = new Mission().missionConstructor(missionList1, user2, 6, false, LocalDateTime.now());
 
@@ -84,6 +90,15 @@ public class Sample implements CommandLineRunner {
 
         missionListRepository.save(missionList1);
         missionListRepository.save(missionList2);
+        missionListRepository.save(missionList3);
+        missionListRepository.save(missionList4);
+        missionListRepository.save(missionList5);
+        missionListRepository.save(missionList6);
+        missionListRepository.save(missionList7);
+        missionListRepository.save(missionList8);
+        missionListRepository.save(missionList9);
+        missionListRepository.save(missionList10);
+
         missionRepository.save(mission1);
         missionRepository.save(mission2);
 

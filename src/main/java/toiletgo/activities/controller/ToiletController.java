@@ -3,6 +3,7 @@ package toiletgo.activities.controller;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ import java.util.List;
  */
 @RestController
 @AllArgsConstructor
+@Slf4j
 public class ToiletController {
 
     private final ToiletService toiletService;
@@ -82,6 +84,7 @@ public class ToiletController {
     public ResponseEntity<String> createToilet(@RequestBody ToiletDto toiletDto, HttpServletRequest request) {
         try {
             String userId = jwtService.getAuthUser(request);
+            log.info("추출된 userId: {}", userId);
             toiletDto.setUserId(userId);
             toiletService.createToilet(toiletDto);
             return ResponseEntity.status(HttpStatus.CREATED)
@@ -90,6 +93,7 @@ public class ToiletController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(e.getMessage());
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("등록 중 오류가 발생했습니다.");
         }
