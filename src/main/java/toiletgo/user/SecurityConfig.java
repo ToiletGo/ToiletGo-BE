@@ -34,24 +34,6 @@ public class SecurityConfig {
     private final AuthenticationFilter authenticationFilter;
     private final AuthEntryPoint exceptionHandler;
 
-    @Configuration
-    public class WebConfig {
-
-        @Bean
-        public WebMvcConfigurer corsConfigurer() {
-            return new WebMvcConfigurer() {
-                @Override
-                public void addCorsMappings(CorsRegistry registry) {
-                    registry.addMapping("/api/**")
-                            .allowedOrigins("http://localhost:3000")
-                            .allowedMethods("*")
-                            .allowedHeaders("*")
-                            .allowCredentials(true);
-                }
-            };
-        }
-    }
-
 
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
@@ -115,6 +97,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:5173")); // 허용할 도메인
+        configuration.setAllowedOrigins(List.of("http://toiletgo.s3-website.ap-northeast-2.amazonaws.com")); // 허용할 도메인
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true); // 필요한 경우
