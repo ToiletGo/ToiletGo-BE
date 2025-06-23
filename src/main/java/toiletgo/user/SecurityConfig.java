@@ -18,6 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import toiletgo.user.auth.AuthEntryPoint;
 import toiletgo.user.auth.AuthenticationFilter;
 import toiletgo.user.service.UserDetailsServiceImpl;
@@ -31,6 +33,24 @@ public class SecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthenticationFilter authenticationFilter;
     private final AuthEntryPoint exceptionHandler;
+
+    @Configuration
+    public class WebConfig {
+
+        @Bean
+        public WebMvcConfigurer corsConfigurer() {
+            return new WebMvcConfigurer() {
+                @Override
+                public void addCorsMappings(CorsRegistry registry) {
+                    registry.addMapping("/api/**")
+                            .allowedOrigins("http://localhost:3000")
+                            .allowedMethods("*")
+                            .allowedHeaders("*")
+                            .allowCredentials(true);
+                }
+            };
+        }
+    }
 
 
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
