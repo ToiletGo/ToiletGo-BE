@@ -2,6 +2,7 @@ package toiletgo.activities.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import toiletgo.activities.dto.ReportDto;
@@ -10,19 +11,14 @@ import toiletgo.activities.entity.Review;
 import toiletgo.activities.entity.Toilet;
 import toiletgo.activities.repository.ReportRepository;
 import toiletgo.activities.repository.ReviewRepository;
-import toiletgo.activities.repository.ToiletRepository;   // 이건 제거해도 됩니다.
 import toiletgo.user.entity.User;
 import toiletgo.user.service.UserService;
-import toiletgo.activities.service.ToiletService;          // ToiletService를 주입
-import toiletgo.activities.repository.ReviewRepository;
-import toiletgo.activities.repository.ToiletRepository;
-import toiletgo.activities.repository.ReviewRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
-@AllArgsConstructor
 public class ReportService {
 
     private final ReportRepository reportRepository;
@@ -35,19 +31,29 @@ public class ReportService {
      * 새로운 신고를 생성하고 저장
      */
     public void createReport(ReportDto reportDto) {
-        // User 조회 (UserService를 통해)
+        // User 조회
         User user = userService.getUserEntity(reportDto.getUserId());
 
-        // Toilet 조회 (ToiletService를 통해)
-        Toilet toilet = toiletService.getToiletEntity(reportDto.getToiletId());
+        Toilet toilet = null;
+        Review review = null;
 
-        // Review 조회: 아직 ReviewService에 getReviewEntity 메소드가 없다면, 직접 reviewRepository 사용
-        Review review = reviewRepository.findById(reportDto.getReviewId())
-                .orElseThrow(() -> new EntityNotFoundException("해당 리뷰가 존재하지 않습니다."));
+        // 조건 분기: 둘 중 하나만 있어야 함
+        if (reportDto.getReviewId() != null && reportDto.getToiletId() != null) {
+            throw new IllegalArgumentException("리뷰 신고와 화장실 신고는 동시에 할 수 없습니다.");
+        }
+
+        if (reportDto.getReviewId() != null) {
+            review = reviewRepository.findById(reportDto.getReviewId())
+                    .orElseThrow(() -> new EntityNotFoundException("해당 리뷰가 존재하지 않습니다."));
+        } else if (reportDto.getToiletId() != null) {
+            toilet = toiletService.getToiletEntity(reportDto.getToiletId());
+        } else {
+            throw new IllegalArgumentException("리뷰 ID나 화장실 ID 중 하나는 반드시 존재해야 합니다.");
+        }
 
         // DTO → Entity 변환 후 저장
         Report report = reportDto.toEntity(user, toilet, review);
-        if(toilet!=null){
+        if (toilet != null) {
             missionService.completeMission10(user.getUserId());
         }
         reportRepository.save(report);
