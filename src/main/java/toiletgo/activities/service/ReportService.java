@@ -31,13 +31,12 @@ public class ReportService {
      * 새로운 신고를 생성하고 저장
      */
     public void createReport(ReportDto reportDto) {
-        // User 조회
+
         User user = userService.getUserEntity(reportDto.getUserId());
 
         Toilet toilet = null;
         Review review = null;
 
-        // 조건 분기: 둘 중 하나만 있어야 함
         if (reportDto.getReviewId() != null && reportDto.getToiletId() != null) {
             throw new IllegalArgumentException("리뷰 신고와 화장실 신고는 동시에 할 수 없습니다.");
         }
