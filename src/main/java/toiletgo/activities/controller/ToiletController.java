@@ -20,7 +20,7 @@ import java.util.List;
  * <h3>ToiletController</h3>
  * <li><b>GET /api/toilets</b> 모든 화장실 조회 </li>
  * <li><b>POST /api/toilets/filter</b> 필터 조건에 맞는 화장실 조회 </li>
- * <li><b>POST /api/toilet/get</b> 단일 화장실 조회 (마커 클릭)</li>
+ * <li><b>GET /api/toilet/get</b> 단일 화장실 조회 (마커 클릭)</li>
  * <li><b>POST /api/toilet</b> 새로운 화장실 등록 </li>
  * <li><b>POST /api/admin/toilet/delete</b> 관리자용: 특정 화장실 삭제 </li>
  */

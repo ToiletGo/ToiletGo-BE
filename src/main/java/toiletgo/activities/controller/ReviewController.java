@@ -1,6 +1,8 @@
 package toiletgo.activities.controller;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,16 +12,25 @@ import toiletgo.activities.dto.ToiletDto;
 import toiletgo.activities.entity.Toilet;
 import toiletgo.activities.service.ReviewService;
 import toiletgo.activities.service.ToiletService;
+import toiletgo.user.service.JwtService;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+
+/**
+ * <h3>ReviewController</h3>
+ * <li><b>POST /api/reviews/create</b> 리뷰 남기기</li>
+ * <li><b>POST /api/reviews/get</b> 특정 화장실 ID에 대한 모든 리뷰 조회</li>
+ * <li><b>POST /api/admin/review/delete</b> 관리자용: 특정 리뷰 삭제</li>
+ */
 @RestController
 @AllArgsConstructor
 public class ReviewController {
 
     private final ReviewService reviewService;
     private final ToiletService toiletService;
+    private final JwtService jwtService;
 
     /**
      * POST /api/reviews/create
@@ -27,8 +38,12 @@ public class ReviewController {
      */
 
     @PostMapping("/api/reviews/create")
-    public ResponseEntity<String> createReview(@RequestBody ReviewDto reviewDto) {
+    public ResponseEntity<String> createReview(@RequestBody ReviewDto reviewDto, HttpServletRequest request) {
         try {
+            // userId 본인 userId로 적용
+            String userId = jwtService.getAuthUser(request);
+            reviewDto.setUserId(userId);
+
             reviewService.createReview(reviewDto);
 
             ToiletDto toilet = toiletService.getToiletDtoById(reviewDto.getToiletId());

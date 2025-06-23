@@ -11,6 +11,10 @@ import toiletgo.activities.service.ReportService;
 
 import java.util.List;
 
+/**
+ * <h3>ReportController</h3>
+ * <li><b></b></li>
+ */
 @RestController
 @AllArgsConstructor
 public class ReportController {

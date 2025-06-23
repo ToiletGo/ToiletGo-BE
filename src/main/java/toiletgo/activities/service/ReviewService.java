@@ -1,6 +1,7 @@
 package toiletgo.activities.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import toiletgo.activities.entity.Review;
 import toiletgo.activities.entity.Toilet;
 import toiletgo.activities.repository.ReviewRepository;
 import toiletgo.user.entity.User;
+import toiletgo.user.service.JwtService;
 import toiletgo.user.service.UserService;
 
 import java.math.BigDecimal;
