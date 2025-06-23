@@ -96,11 +96,13 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173")); // 허용할 도메인
-        configuration.setAllowedOrigins(List.of("http://toiletgo.s3-website.ap-northeast-2.amazonaws.com")); // 허용할 도메인
+        configuration.setAllowedOrigins(List.of(
+                "http://localhost:5173",
+                "http://toiletgo.s3-website.ap-northeast-2.amazonaws.com"
+        ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowCredentials(true); // 필요한 경우
+        configuration.setAllowCredentials(true); // 인증 필요 시 true
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
