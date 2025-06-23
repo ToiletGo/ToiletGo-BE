@@ -1,6 +1,7 @@
 package toiletgo.activities.controller;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import toiletgo.activities.dto.ReportDto;
 import toiletgo.activities.service.ReportService;
+import toiletgo.user.service.JwtService;
 
 import java.util.List;
 
@@ -20,14 +22,19 @@ import java.util.List;
 public class ReportController {
 
     private final ReportService reportService;
+    private final JwtService jwtService;
 
     /**
      * POST /api/report/create
      * 새로운 화장실/리뷰 신고 등록
      */
     @PostMapping("/api/report/create")
-    public ResponseEntity<String> reportToilet(@RequestBody ReportDto reportDto) {
+    public ResponseEntity<String> reportToilet(@RequestBody ReportDto reportDto, HttpServletRequest request) {
         try {
+            // 본인 id로 등록
+            String userId = jwtService.getAuthUser(request);
+            reportDto.setUserId(userId);
+            
             reportService.createReport(reportDto);
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body("신고가 성공적으로 등록되었습니다.");
