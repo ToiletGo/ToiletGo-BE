@@ -49,6 +49,8 @@ public class ReviewService {
         Review review = dto.toEntity(user, toilet);
         reviewRepository.save(review);
 
+        user.setUserPoint(user.getUserPoint()+10);
+
         List<Review> all = reviewRepository.findByToilet_ToiletId(dto.getToiletId());
         double total = all.stream().mapToDouble(Review::getRating).sum();
         int count = all.size();
