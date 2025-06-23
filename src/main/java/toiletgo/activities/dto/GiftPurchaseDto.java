@@ -8,6 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GiftPurchaseDto {
-    private String userId;
     private Long giftId;
 }

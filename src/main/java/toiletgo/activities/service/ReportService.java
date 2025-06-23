@@ -54,7 +54,10 @@ public class ReportService {
         // DTO → Entity 변환 후 저장
         Report report = reportDto.toEntity(user, toilet, review);
         if (toilet != null) {
+            userService.minusUserPoint(toilet.getUserId());
             missionService.completeMission10(user.getUserId());
+        } else{
+            userService.minusUserPoint(review.getUser().getUserId());
         }
         reportRepository.save(report);
     }

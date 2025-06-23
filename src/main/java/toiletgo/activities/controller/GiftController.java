@@ -70,9 +70,9 @@ public class GiftController {
      * 선물 구입
      */
     @PatchMapping("/api/gifts/purchase")
-    public ResponseEntity<String> buyGift(@RequestBody GiftPurchaseDto giftPurchaseDto) {
+    public ResponseEntity<String> buyGift(@RequestBody GiftPurchaseDto giftPurchaseDto,HttpServletRequest request) {
         try {
-            giftService.buyGift(giftPurchaseDto);
+            giftService.buyGift(giftPurchaseDto,request);
             return ResponseEntity.ok("구매가 완료되었습니다.");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
