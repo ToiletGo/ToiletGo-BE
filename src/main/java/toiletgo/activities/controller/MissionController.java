@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class MissionController {
 
     private final MissionService missionService;
-    
+
     @Autowired
     public MissionController(@Lazy MissionService missionService) {
         this.missionService = missionService;
