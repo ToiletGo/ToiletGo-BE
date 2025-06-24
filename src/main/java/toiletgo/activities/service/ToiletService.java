@@ -7,6 +7,8 @@ import toiletgo.activities.dto.ToiletDto;
 import toiletgo.activities.dto.ToiletSearchFilterDto;
 import toiletgo.activities.entity.Toilet;
 import toiletgo.activities.repository.ToiletRepository;
+import toiletgo.user.entity.User;
+import toiletgo.user.service.UserService;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,7 +20,7 @@ public class ToiletService {
 
     private final ToiletRepository toiletRepository;
     private final MissionService missionService;
-
+    private final UserService userService;
     /**
      * 모든 화장실 조회
      */
@@ -79,6 +81,8 @@ public class ToiletService {
         }
         Toilet toilet = dto.toEntity();
         toiletRepository.save(toilet);
+        User user = userService.getUserEntity(dto.getUserId());
+        user.setUserPoint(user.getUserPoint()+10);
         missionService.completeMission2(dto.getUserId());
         missionService.updateMission3Progress(dto.getUserId());
         if(toilet.getHasHandicapAccess()==true){

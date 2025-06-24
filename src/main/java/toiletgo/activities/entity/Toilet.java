@@ -101,6 +101,10 @@ public class Toilet {
         this.latitude = latitude;
         this.longitude = longitude;
         this.rating = rating;
+        this.hasBidet = false;
+        this.hasHandicapAccess = false;
+        this.hasTissue = false;
+        this.hasDiaperTable = false;
     }
 
 

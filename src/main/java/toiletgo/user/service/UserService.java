@@ -40,7 +40,7 @@ public class UserService {
         }
 
         user.setUserPoint(0);
-        user.setUserTrust(8);
+        user.setUserTrust(20);
         user.setUserProfileImg(null);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
@@ -118,5 +118,11 @@ public class UserService {
     public void givePoint(String userId, int point){
         User user = getUserEntity(userId);
         user.setUserPoint(user.getUserPoint()+point);
+    }
+
+    public void minusUserPoint(String userId) {
+        User target = userRepository.findById(userId).orElse(null);
+        target.setUserTrust(target.getUserTrust()-10);
+        userRepository.save(target);
     }
 }

@@ -45,11 +45,10 @@ public class GiftList {
     private Boolean isAssigned;
 
 
-    public GiftList(String giftType, String url, Integer point,  LocalDate expiration, Boolean isAssigned) {
+    public GiftList(String giftType, String url, Integer point, Boolean isAssigned) {
         this.giftType = giftType;
         this.url = url;
         this.point = point;
-        this.expiration = expiration;
         this.isAssigned = isAssigned;
     }
 

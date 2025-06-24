@@ -55,23 +55,22 @@ public class GiftService {
     /**
      * 선물 구입 처리
      */
-    public ResponseEntity<?> buyGift(GiftPurchaseDto giftPurchaseDto) {
+    public ResponseEntity<?> buyGift(GiftPurchaseDto giftPurchaseDto, HttpServletRequest request) {
+        String userId = jwtService.getAuthUser(request);
         GiftList giftListEntity = giftListRepository
                 .findById(giftPurchaseDto.getGiftId())
                 .orElseThrow(() -> new EntityNotFoundException("해당 선물이 존재하지 않습니다."));
-
-        giftListEntity.setIsAssigned(true);
-        giftListEntity.setExpiration(LocalDate.now().plusMonths(1));
         // giftListRepository.save(giftListEntity); // Optional: 변경 감지(Dirty Checking)로 자동 반영됩니다.
 
         User user = userRepository
-                .findById(giftPurchaseDto.getUserId())
+                .findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("해당 유저가 존재하지 않습니다."));
 
         if(giftListEntity.getIsAssigned() == true){
             throw new GiftAlreadyUsedException("이미 사용된 기프티콘입니다.");
         }
         giftListEntity.setIsAssigned(true);
+        giftListEntity.setExpiration(LocalDate.now().plusMonths(1));
         // giftListRepository.save(giftListEntity); // Optional: 변경 감지(Dirty Checking)로 자동 반영됩니다.
 
 

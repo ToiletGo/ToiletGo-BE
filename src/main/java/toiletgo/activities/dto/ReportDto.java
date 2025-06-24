@@ -24,7 +24,6 @@ public class ReportDto {
 
     private String reportType;
     private String description;
-
     private boolean isProcessed;
     private LocalDateTime reportAt;
     private String userName;
