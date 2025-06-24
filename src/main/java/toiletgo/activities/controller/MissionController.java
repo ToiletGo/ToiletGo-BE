@@ -19,8 +19,12 @@ import java.util.stream.Collectors;
 @RestController
 public class MissionController {
 
-    @Lazy
-    MissionService missionService;
+    private final MissionService missionService;
+    
+    @Autowired
+    public MissionController(@Lazy MissionService missionService) {
+        this.missionService = missionService;
+    }
 
     @PostMapping("/api/missions/get")
     public ResponseEntity<List<MissionListDto>> getMissions(@RequestBody UserDto userDto) {
